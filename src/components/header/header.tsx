@@ -1,4 +1,5 @@
-
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./header.scss";
 
 type headerProps = {
@@ -28,22 +29,28 @@ export const Header = ({ theme, setTheme } : headerProps) => {
   };
 
   return (
-    <>
-      <div>
+    <div className="header-container">
+      <div className="location">
         <div className="city">Kumasi</div>
         <div className="country">Ghana</div>
         <div className="date">{getCurrentDate()}</div>
       </div>
-      <div>
-        <button
+      <div className="settings">
+        <div
+          className="button-theme"
           onClick={() => {
             if (theme === "dark") setTheme("light");
             else setTheme("dark");
           }}
         >
-          {theme}
-        </button>
+          <FontAwesomeIcon
+            icon={theme === "dark" ? faSun : faMoon}
+          ></FontAwesomeIcon>
+        </div>
+        <div>
+          <input className="input" placeholder="Enter your location"></input>
+        </div>
       </div>
-    </>
+    </div>
   );
 };

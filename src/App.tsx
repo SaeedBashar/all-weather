@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { CurrentWeather } from './components/currentWeather/current-weather';
-import { Header } from './components/header/header';
+import { Container } from './components/container/container';
 import './App.scss';
 
 function App() {
@@ -10,8 +9,7 @@ function App() {
   return (
     <main className={theme}>
       <div className="main-container">
-        <Header theme={theme} setTheme={setTheme}></Header>
-        <CurrentWeather theme={theme}></CurrentWeather>
+        <Container theme={theme} setTheme={setTheme}></Container>
       </div>
     </main>
   );
