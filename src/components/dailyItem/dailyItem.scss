@@ -7,12 +7,14 @@
   padding: 5px 20px;
   font-family: "Barlow", sans-serif;
   font-size: $body2-font-size;
+  cursor: pointer;
   .icon-small {
     width: 40px;
   }
   .day {
     flex: 1;
     margin-left: 15px;
+    font-weight: 600;
     @include theme() {
       color: get-color("text");
     }

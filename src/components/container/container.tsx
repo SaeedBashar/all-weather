@@ -3,6 +3,8 @@ import { Daily } from "../daily/daily";
 import { Header } from "../header/header";
 import { Hourly } from "../hourly/hourly";
 
+import { useWeather } from "../../hooks";
+
 import "./container.scss";
 
 type containerProps = {
@@ -11,6 +13,8 @@ type containerProps = {
 }
 
 export const Container = ({ theme, setTheme }: containerProps) => {
+  const [] = useWeather(45.7634188, 21.2397304, "metric");
+
   return (
     <div className="container">
       <div className="grid-container">
