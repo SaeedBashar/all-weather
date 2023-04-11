@@ -2,15 +2,15 @@ import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./header.scss";
 
-type headerProps = {
-  theme : string,
-  setTheme : (arg:string)=>void
-}
+type HeaderProps = {
+  theme: string;
+  setTheme: (theme: string) => void;
+};
 
-export const Header = ({ theme, setTheme } : headerProps) => {
+export const Header = ({ theme, setTheme }: HeaderProps) => {
   const getCurrentDate = () => {
     var date = new Date().toLocaleString("en-GB", {
-      day: "2-digit",
+      day: "numeric",
       weekday: "long",
       month: "long",
     });
@@ -31,9 +31,9 @@ export const Header = ({ theme, setTheme } : headerProps) => {
   return (
     <>
       <div className="location">
-        <div className="city">Kumasi</div>
-        <div className="country">Ghana</div>
-        <div className="date">{getCurrentDate()}</div>
+        <label className="city">Timișoara</label>
+        <label className="country">Romania</label>
+        <label className="date">{getCurrentDate()}</label>
       </div>
       <div className="settings">
         <div

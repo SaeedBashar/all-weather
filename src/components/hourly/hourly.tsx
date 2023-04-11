@@ -1,51 +1,21 @@
 import { useState } from "react";
 import HourlyItem from "../hourlyItem/hourlyItem";
 import "./hourly.scss";
+import { HourlyWeatherModel } from "../../models";
 
-type hourProps = {
-  theme : string
-}
+type HourlyProps = {
+  theme: string;
+  unit: string;
+  data: HourlyWeatherModel;
+};
 
-export const Hourly = ({ theme } : hourProps) => {
-  const hourlyWeather = [
-    {
-      id: 1,
-    },
-    {
-      id: 2,
-    },
-    {
-      id: 3,
-    },
-    {
-      id: 4,
-    },
-    {
-      id: 5,
-    },
-    {
-      id: 6,
-    },
-    {
-      id: 7,
-    },
-    {
-      id: 8,
-    },
-    {
-      id: 9,
-    },
-    {
-      id: 10,
-    },
-  ];
-  
+export const Hourly = ({ theme, unit, data }: HourlyProps) => {
   const [activeIndex, setActiveIndex] = useState(
-    hourlyWeather ? hourlyWeather[0].id : 0
+    data && data.hourly ? data.hourly[0].dt : 0
   );
 
-  const hourlyClickHandler = (h:any) => {
-    setActiveIndex(h.id);
+  const clickHandler = (h: any) => {
+    setActiveIndex(h.dt);
   };
 
   return (
@@ -53,17 +23,17 @@ export const Hourly = ({ theme } : hourProps) => {
       <div className="hourly">
         <label className="title">Hourly</label>
         <div className="hourly-items-container">
-          {hourlyWeather.map((h:any) => (
+          {data.hourly.map((h) => (
             <div
-              key={h.id}
+              key={h.dt}
               className={
-                activeIndex === h.id
+                activeIndex === h.dt
                   ? "hourly-item-container active"
                   : "hourly-item-container"
               }
-              onClick={() => hourlyClickHandler(h)}
+              onClick={() => clickHandler(h)}
             >
-              <HourlyItem theme={theme}></HourlyItem>
+              <HourlyItem theme={theme} unit={unit} data={h}></HourlyItem>
             </div>
           ))}
         </div>

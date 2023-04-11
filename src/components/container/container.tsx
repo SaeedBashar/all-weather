@@ -1,28 +1,45 @@
-import { Current } from "../current/current";
+import { useWeather } from "../../hooks";
+import { CurrentWeather } from "../currentWeather/currentWeather";
+import { CurrentWeatherDetails } from "../currentWeatherDetails/currentWeatherDetails";
 import { Daily } from "../daily/daily";
 import { Header } from "../header/header";
 import { Hourly } from "../hourly/hourly";
 
-import { useWeather } from "../../hooks";
 
 import "./container.scss";
 
-type containerProps = {
-  theme : string,
-  setTheme : (arg:string)=>void
-}
+type ContainerProps = {
+  theme: string;
+  setTheme: (theme: string) => void;
+};
 
-export const Container = ({ theme, setTheme }: containerProps) => {
-  const [] = useWeather(45.7634188, 21.2397304, "metric");
+export const Container = ({ theme, setTheme }: ContainerProps) => {
+  const unit = "metric";
+  const { isLoading, currentWeather, hourlyWeather, dailyWeather } = useWeather(
+    44.34,
+    10.99,
+    unit
+  );
 
   return (
     <div className="container">
-      <div className="grid-container">
-        <Header theme={theme} setTheme={setTheme}></Header>
-        <Current theme={theme}></Current>
-        <Hourly theme={theme}></Hourly>
-        <Daily theme={theme}></Daily>
-      </div>
+      {!isLoading ? (
+        <div className="grid-container">
+          <Header theme={theme} setTheme={setTheme}></Header>
+          <CurrentWeather
+            theme={theme}
+            unit={unit}
+            data={currentWeather}
+          ></CurrentWeather>
+          <CurrentWeatherDetails
+            data={currentWeather.details}
+          ></CurrentWeatherDetails>
+          <Hourly theme={theme} unit={unit} data={hourlyWeather}></Hourly>
+          <Daily theme={theme} unit={unit} data={dailyWeather}></Daily>
+        </div>
+      ) : (
+        <div className="loading">Loading...</div>
+      )}
     </div>
   );
 };

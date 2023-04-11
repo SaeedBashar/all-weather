@@ -1,19 +1,27 @@
+import { CurrentWeatherModel } from "../../models";
 import "./hourlyItem.scss";
 
-type hourItemProps = {
-  theme : string
-}
-export const HourlyItem = ({ theme } : hourItemProps) => {
-  const weatherCode = theme === "dark" ? "03d_n" : "03d";
+type HourlyItemProps = {
+  theme: string;
+  unit: string;
+  data: CurrentWeatherModel;
+};
+
+export const HourlyItem = ({ theme, unit, data }: HourlyItemProps) => {
+  const weatherCode =
+    theme === "dark" ? `${data.weather.icon}_n` : `${data.weather.icon}`;
+  const unitSymbol = unit === "metric" ? "C" : "F";
   return (
     <div className={"hourly-item"}>
-      <label className="hour">18:00</label>
+      <label className="hour">{new Date(data.dt * 1000).getHours()}:00</label>
       <img
         src={require(`../../assets/img/icon_${weatherCode}.png`)}
         className="icon-small"
         alt=""
       />
-      <label className="temp">24°</label>
+      <label className="temp">
+        {Math.round(data.temp)}°{unitSymbol}
+      </label>
     </div>
   );
 };

@@ -1,10 +1,11 @@
 import "./dailyItem.scss";
 
-type dailyItemProps = {
-  theme : string,
-  onClick : ()=>void
-}
-export const DailyItem = ({ theme, onClick }: dailyItemProps) => {
+type DailyItemProps = {
+  theme: string;
+  onClick: () => void;
+};
+
+export const DailyItem = ({ theme, onClick }: DailyItemProps) => {
   const weatherCode = theme === "dark" ? "04d_n" : "04d";
   return (
     <div className="daily-item" onClick={onClick}>
