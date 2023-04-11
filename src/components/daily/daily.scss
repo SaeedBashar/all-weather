@@ -1,9 +1,36 @@
 @import "../../assets/scss/color-themes";
 @import "../../assets/scss/font-size";
+@import "../../assets/scss/media-queries";
 
 .daily {
-  grid-column: span 4;
-  grid-row: 5;
+  @include mobile-small-portrait {
+    grid-column: span 4;
+    grid-row: 6;
+  }
+  @include mobile-small-landscape {
+    grid-column: span 4;
+    grid-row: 5;
+  }
+  @include mobile-portrait {
+    grid-column: span 4;
+    grid-row: 6;
+  }
+  @include mobile-landscape {
+    grid-column: span 4;
+    grid-row: 5;
+  }
+  @include tablet-portrait {
+    grid-column: span 4;
+    grid-row: 6;
+  }
+  @include tablet-landscape {
+    grid-column: span 4;
+    grid-row: 5;
+  }
+  @include desktop {
+    grid-column: span 4;
+    grid-row: 5;
+  }
   display: flex;
   flex-direction: column;
   .title {
@@ -32,22 +59,8 @@
       transform: 250ms;
       overflow: hidden;
       &.active {
-        height: 100px;
-      }
-    }
-    .daily-item-details {
-      display: flex;
-      @include theme() {
-        color: get-color("text");
-      }
-      font-family: "Barlow", sans-serif;
-      font-size: $body2-font-size;
-      .daily-item-details-item {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
+        height: 130px;
       }
     }
   }
 }
-

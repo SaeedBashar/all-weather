@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useWeather } from "../../hooks";
 import { CurrentWeather } from "../currentWeather/currentWeather";
 import { CurrentWeatherDetails } from "../currentWeatherDetails/currentWeatherDetails";
@@ -5,36 +6,60 @@ import { Daily } from "../daily/daily";
 import { Header } from "../header/header";
 import { Hourly } from "../hourly/hourly";
 
-
+import {
+  CurrentWeatherModel,
+  EmptyCurrentWeather,
+  ThemeType,
+} from "../../models";
 import "./container.scss";
 
 type ContainerProps = {
   theme: string;
-  setTheme: (theme: string) => void;
+  changeTheme: (theme: ThemeType) => void;
 };
 
-export const Container = ({ theme, setTheme }: ContainerProps) => {
+export const Container = ({ theme, changeTheme }: ContainerProps) => {
   const unit = "metric";
   const { isLoading, currentWeather, hourlyWeather, dailyWeather } = useWeather(
-    44.34,
-    10.99,
-    unit
+    unit,
+    false
   );
+  const [currentWeatherSelectedItem, setCurrentWeatherSelectedItem] =
+    useState(EmptyCurrentWeather);
 
+  useEffect(() => {
+    setCurrentWeatherSelectedItem(currentWeather);
+  }, [currentWeather]);
+
+  const hourlyItemClickHandler = (current: CurrentWeatherModel) => {
+    setCurrentWeatherSelectedItem(current);
+  };
+
+  console.log(isLoading, currentWeather, hourlyWeather, dailyWeather)
+  console.log(currentWeatherSelectedItem)
   return (
     <div className="container">
-      {!isLoading ? (
+      {!isLoading? (
         <div className="grid-container">
-          <Header theme={theme} setTheme={setTheme}></Header>
+          <Header
+            data={currentWeatherSelectedItem}
+            theme={theme}
+            changeTheme={changeTheme}
+          ></Header>
           <CurrentWeather
             theme={theme}
             unit={unit}
-            data={currentWeather}
+            data={currentWeatherSelectedItem}
           ></CurrentWeather>
           <CurrentWeatherDetails
-            data={currentWeather.details}
+            data={currentWeatherSelectedItem.details}
           ></CurrentWeatherDetails>
-          <Hourly theme={theme} unit={unit} data={hourlyWeather}></Hourly>
+          <Hourly
+            theme={theme}
+            unit={unit}
+            data={hourlyWeather}
+            clickHandler={hourlyItemClickHandler}
+          ></Hourly>
           <Daily theme={theme} unit={unit} data={dailyWeather}></Daily>
         </div>
       ) : (

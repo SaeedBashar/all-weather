@@ -12,7 +12,7 @@ export const HourlyItem = ({ theme, unit, data }: HourlyItemProps) => {
     theme === "dark" ? `${data.weather.icon}_n` : `${data.weather.icon}`;
   const unitSymbol = unit === "metric" ? "C" : "F";
   return (
-    <div className={"hourly-item"}>
+    <div className="hourly-item">
       <label className="hour">{new Date(data.dt * 1000).getHours()}:00</label>
       <img
         src={require(`../../assets/img/icon_${weatherCode}.png`)}

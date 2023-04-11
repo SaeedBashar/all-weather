@@ -27,9 +27,11 @@ export const CurrentWeatherDetails = ({ data }: CurrentWeatherProps) => {
         </div>{" "}
         <div className="current-weather-details-grid-item">
           <label>Wind speed:</label>
-          <label>{data?.wind_speed} m/s</label>
+          <label>{data ? Math.round(data.wind_speed) : ""} m/s</label>
         </div>
       </div>
     </div>
   );
 };
+
+export default CurrentWeatherDetails;

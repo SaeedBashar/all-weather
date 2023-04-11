@@ -2,6 +2,7 @@ import { useState } from "react";
 import DailyItem from "../dailyItem/dailyItem";
 import "./daily.scss";
 import { DailyWeatherModel } from "../../models";
+import DailyItemDetails from "../dailyItemDetails/dailyItemDetails";
 
 type DailyProps = {
   theme: string;
@@ -25,9 +26,11 @@ export const Daily = ({ theme, unit, data }: DailyProps) => {
         <label className="title">Daily</label>
         <div className="daily-items-container">
           {data.daily.map((d) => (
-            <>
+            <div key={d.dt}>
               <DailyItem
                 theme={theme}
+                unit={unit}
+                data={d}
                 onClick={() => clickHandler(d)}
               ></DailyItem>
               <div
@@ -37,35 +40,18 @@ export const Daily = ({ theme, unit, data }: DailyProps) => {
                     : "daily-item-header"
                 }
               >
-                {/* <div className="daily-item-details">
-                  <div className="daily-details-grid">
-                    <div className="daily-details-grid-item">
-                      <label>Rain:</label>
-                      <label>{d.details.rain}%</label>
-                    </div>{" "}
-                    <div className="daily-details-grid-item">
-                      <label>Pressure:</label>
-                      <label>{d.details.pressure}hPa</label>
-                    </div>{" "}
-                    <div className="daily-details-grid-item">
-                      <label>Humidity:</label>
-                      <label>{d.details.humidity}%</label>
-                    </div>{" "}
-                    <div className="daily-details-grid-item">
-                      <label>Visibility:</label>
-                      <label>{d.details.visibility} km</label>
-                    </div>{" "}
-                    <div className="daily-details-grid-item">
-                      <label>Wind speed:</label>
-                      <label>{d.details.wind_speed} m/s</label>
-                    </div>
-                  </div>
-                </div> */}
+                <DailyItemDetails
+                  theme={theme}
+                  unit={unit}
+                  data={d}
+                ></DailyItemDetails>
               </div>
-            </>
+            </div>
           ))}
         </div>
       </div>
     </>
   );
 };
+
+export default Daily;

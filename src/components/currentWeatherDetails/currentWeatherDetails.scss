@@ -3,22 +3,33 @@
 @import "../../assets/scss/font-size";
 
 .current-weather-details {
+  @include mobile-small-portrait {
+    grid-column: span 4;
+    grid-row: 4;
+  }
+  @include mobile-small-landscape {
+    grid-column: span 2;
+    grid-row: 3;
+  }
   @include mobile-portrait {
     grid-column: span 4;
-    grid-row: 3;
+    grid-row: 4;
   }
   @include mobile-landscape {
     grid-column: span 2;
+    grid-row: 3;
   }
   @include tablet-portrait {
     grid-column: span 4;
-    grid-row: 3;
+    grid-row: 4;
   }
   @include tablet-landscape {
     grid-column: span 2;
+    grid-row: 3;
   }
   @include desktop {
     grid-column: span 2;
+    grid-row: 3;
   }
   @include theme() {
     background-color: get-color("background-card");
@@ -31,7 +42,6 @@
   .current-weather-details-grid {
     flex: 1;
     display: grid;
-    grid-template-rows: 30px 30px 30px;
     grid-template-columns: auto auto;
     row-gap: 0;
     column-gap: 15px;
@@ -40,6 +50,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      height: 30px;
       label:first-child {
         @include theme() {
           color: get-color("text-secondary");

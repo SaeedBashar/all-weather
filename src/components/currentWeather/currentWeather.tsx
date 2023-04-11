@@ -38,3 +38,5 @@ export const CurrentWeather = ({ theme, unit, data }: CurrentWeatherProps) => {
     </>
   );
 };
+
+export default CurrentWeather;
