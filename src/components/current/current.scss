@@ -1,0 +1,99 @@
+@import "../../assets/scss/color-themes";
+@import "../../assets/scss/media-queries";
+@import "../../assets/scss/font-size";
+
+.current {
+  @include mobile-portrait {
+    grid-column: span 4;
+  }
+  @include mobile-landscape {
+    grid-column: span 2;
+  }
+  @include tablet-portrait {
+    grid-column: span 4;
+  }
+  @include tablet-landscape {
+    grid-column: span 2;
+  }
+  @include desktop {
+    grid-column: span 2;
+  }
+  display: flex;
+  justify-content: space-between;
+  .image {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    .icon {
+      width: 120px;
+    }
+  }
+  .details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    .temp {
+      @include theme() {
+        color: get-color("text");
+      }
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: $headline0-font-size;
+      font-weight: 900;
+      margin-bottom: -15px;
+      span {
+        @include theme() {
+          color: get-color("text");
+        }
+        font-family: "Barlow", sans-serif;
+        font-size: $headline4-font-size;
+      }
+    }
+    .feelslike {
+      @include theme() {
+        color: get-color("text-secondary");
+      }
+      font-family: "Barlow", sans-serif;
+      font-size: $body2-font-size;
+      span {
+        @include theme() {
+          color: get-color("text");
+        }
+        font-size: $body2-font-size;
+      }
+    }
+    .description {
+      @include theme() {
+        color: get-color("text");
+      }
+      font-family: "Barlow", sans-serif;
+      font-size: $body2-font-size;
+    }
+  }
+}
+.current-details {
+  @include mobile-portrait {
+    grid-column: span 4;
+    grid-row: 3;
+  }
+  @include mobile-landscape {
+    grid-column: span 2;
+  }
+  @include tablet-portrait {
+    grid-column: span 4;
+    grid-row: 3;
+  }
+  @include tablet-landscape {
+    grid-column: span 2;
+  }
+  @include desktop {
+    grid-column: span 2;
+  }
+  @include theme() {
+    background-color: get-color("background-card");
+    box-shadow: 0px 5px 10px 0px get-color("color-shadow");
+
+  }
+  height: 100%;
+  border-radius: 15px;
+}

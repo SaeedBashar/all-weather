@@ -9,17 +9,17 @@ type headerProps = {
 
 export const Header = ({ theme, setTheme } : headerProps) => {
   const getCurrentDate = () => {
-    var date = new Date().toLocaleString("en", {
-      weekday: "long",
+    var date = new Date().toLocaleString("en-GB", {
       day: "2-digit",
+      weekday: "long",
       month: "long",
     });
 
-    var year = new Date().toLocaleString("en", {
+    var year = new Date().toLocaleString("en-GB", {
       year: "numeric",
     });
 
-    var hour = new Date().toLocaleString("en", {
+    var hour = new Date().toLocaleString("en-GB", {
       hour: "2-digit",
       minute: "2-digit",
       hour12: false,
@@ -29,7 +29,7 @@ export const Header = ({ theme, setTheme } : headerProps) => {
   };
 
   return (
-    <div className="header-container">
+    <>
       <div className="location">
         <div className="city">Kumasi</div>
         <div className="country">Ghana</div>
@@ -47,10 +47,10 @@ export const Header = ({ theme, setTheme } : headerProps) => {
             icon={theme === "dark" ? faSun : faMoon}
           ></FontAwesomeIcon>
         </div>
-        <div>
-          <input className="input" placeholder="Enter your location"></input>
-        </div>
       </div>
-    </div>
+      <div className="search">
+        <input className="input" placeholder="Enter your location"></input>
+      </div>
+    </>
   );
 };

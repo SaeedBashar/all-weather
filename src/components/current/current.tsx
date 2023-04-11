@@ -1,14 +1,13 @@
+import "./current.scss";
 
-import "./current-weather.scss";
-
-type currentWeatherProp = {
+type currentProps = {
   theme : string
 }
-export const CurrentWeather = ({ theme } : currentWeatherProp) => {
+export const Current = ({ theme }: currentProps) => {
   const weatherCode = theme === "dark" ? "02d_n" : "02d";
   return (
-    <div className="current-weather-container">
-      <div className="current-weather">
+    <>
+      <div className="current">
         <div className="image">
           <img
             src={require(`../../assets/img/icon_${weatherCode}.png`)}
@@ -18,15 +17,17 @@ export const CurrentWeather = ({ theme } : currentWeatherProp) => {
         </div>
         <div className="details">
           <div className="temp">
-            20°<span>C</span>
+            23°<span>C</span>
           </div>
           <div className="feelslike">
-            Feels like: <span>25°</span>
+            Feels like: <span>27°</span>
           </div>
           <div className="description">sunny</div>
         </div>
       </div>
-      <div className="current-weather-details"></div>
-    </div>
+      <div className="current-details"></div>
+    </>
   );
 };
+
+export default Current;

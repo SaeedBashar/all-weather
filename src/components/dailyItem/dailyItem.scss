@@ -1,0 +1,25 @@
+@import "../../assets/scss/color-themes";
+@import "../../assets/scss/font-size";
+
+.daily-item {
+  display: flex;
+  align-items: center;
+  padding: 5px 20px;
+  font-family: "Barlow", sans-serif;
+  font-size: $body2-font-size;
+  .icon-small {
+    width: 40px;
+  }
+  .day {
+    flex: 1;
+    margin-left: 15px;
+    @include theme() {
+      color: get-color("text");
+    }
+  }
+  .min-max {
+    @include theme() {
+      color: get-color("text-secondary");
+    }
+  }
+}
