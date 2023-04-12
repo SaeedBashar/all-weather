@@ -4,13 +4,23 @@ import { CurrentWeatherModel, ThemeType } from "../../models";
 import "./header.scss";
 
 type HeaderProps = {
+  locality?: string;
+  country?: string;
   data: CurrentWeatherModel;
   theme: string;
   changeTheme: (theme: ThemeType) => void;
+  changeLocation: (location: string) => void;
 };
 
-export const Header = ({ data, theme, changeTheme }: HeaderProps) => {
-  const getCurrentDate = () => {
+export const Header = ({
+  locality,
+  country,
+  data,
+  theme,
+  changeTheme,
+  changeLocation,
+}: HeaderProps) => {
+  const getFormatedDate = () => {
     const selectedDate = new Date(data.dt * 1000);
     var date = selectedDate.toLocaleString("en-GB", {
       day: "numeric",
@@ -31,9 +41,9 @@ export const Header = ({ data, theme, changeTheme }: HeaderProps) => {
   return (
     <>
       <div className="location">
-        <label className="city">Timișoara</label>
-        <label className="country">Romania</label>
-        <label className="date">{getCurrentDate()}</label>
+        <label className="city">{locality}</label>
+        <label className="country">{country}</label>
+        <label className="date">{getFormatedDate()}</label>
       </div>
       <div className="settings">
         <div
@@ -49,7 +59,15 @@ export const Header = ({ data, theme, changeTheme }: HeaderProps) => {
         </div>
       </div>
       <div className="search">
-        <input className="input" placeholder="Enter your location"></input>
+        <input
+            className="input"
+            placeholder="Enter your location"
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                changeLocation(e.currentTarget.value);
+              }
+            }}
+          ></input>
       </div>
     </>
   );

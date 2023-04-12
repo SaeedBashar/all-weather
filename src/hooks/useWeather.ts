@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation } from "./useLocation";
+import { useLocation } from ".";
 import {
   CurrentWeatherModel,
   DailyWeatherDetailsModel,
@@ -11,14 +11,17 @@ import {
   HourlyWeatherModel,
 } from "../models";
 
-export const useWeather = (units: string, useMockData: boolean) => {
+export const useWeather = (
+  locationName: string,
+  units: string,
+  useMockData: boolean
+) => {
   const baseUrl = process.env.REACT_APP_OPENWEATHER_API_BASEURL;
   const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY;
 
-  const { location } = useLocation();
+  const { location } = useLocation(locationName, useMockData);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
   const [currentWeather, setCurrentWeather] =
     useState<CurrentWeatherModel>(EmptyCurrentWeather);
   const [hourlyWeather, setHourlyWeather] = useState<HourlyWeatherModel>(
@@ -33,14 +36,13 @@ export const useWeather = (units: string, useMockData: boolean) => {
     if (location) {
       const url = useMockData
         ? "./mock-data/weather.json"
-        : `${baseUrl}?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&exclude=minutely,alerts&appid=${apiKey}`;
+        : `${baseUrl}?lat=${location.position.latitude}&lon=${location.position.longitude}&units=${units}&exclude=minutely,alerts&appid=${apiKey}`;
       axios
         .get(url)
         .then((response) => {
-          let list = response.data.list
-          setCurrent(list[0]);
-          setHourly(list);
-          setDaily(list);
+          setCurrent(response.data.current);
+          setHourly(response.data.hourly);
+          setDaily(response.data.daily);
         })
         .finally(() => {
           setIsLoading(false);
@@ -55,14 +57,14 @@ export const useWeather = (units: string, useMockData: boolean) => {
         icon: data.weather[0].icon,
         description: data.weather[0].description,
       },
-      temp: data.main.temp,
-      feels_like: data.main.feels_like,
+      temp: data.temp,
+      feels_like: data.feels_like,
       details: {
         rain: 0,
         visibility: data.visibility / 1000,
-        humidity: data.main.humidity,
-        pressure: data.main.pressure,
-        wind_speed: data.wind.speed,
+        humidity: data.humidity,
+        pressure: data.pressure,
+        wind_speed: data.wind_speed,
       },
     });
   };
@@ -96,23 +98,29 @@ export const useWeather = (units: string, useMockData: boolean) => {
       daily.push({
         dt: item.dt,
         clouds: item.clouds,
-        humidity: item.main.humidity,
-        pressure: item.main.pressure,
+        humidity: item.humidity,
+        pressure: item.pressure,
         sunrise: item.sunrise,
         sunset: item.sunset,
-        minTemp: item.main.temp_min,
-        maxTemp: item.main.temp_max,
+        minTemp: item.temp.min,
+        maxTemp: item.temp.max,
         uvi: item.uvi,
         weather: {
           icon: item.weather[0].icon,
           description: item.weather[0].description,
         },
-        wind_speed: item.wind.speed,
+        wind_speed: item.wind_speed,
         rain: item.pop * 100,
       });
     });
     setDailyWeather({ daily: daily });
   };
 
-  return { isLoading, currentWeather, hourlyWeather, dailyWeather };
+  return {
+    isLoading,
+    location,
+    currentWeather,
+    hourlyWeather,
+    dailyWeather,
+  };
 };
