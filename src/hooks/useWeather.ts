@@ -16,7 +16,7 @@ export const useWeather = (
   units: string,
   useMockData: boolean
 ) => {
-  const baseUrl = process.env.REACT_APP_OPENWEATHER_API_BASEURL;
+  const baseUrl = process.env.REACT_APP_FAKERJS_JSON_SERVER_URL;
   const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY;
 
   const { location } = useLocation(locationName, useMockData);
@@ -34,9 +34,10 @@ export const useWeather = (
   useEffect(() => {
     setIsLoading(true);
     if (location) {
-      const url = useMockData
-        ? "./mock-data/weather.json"
-        : `${baseUrl}?lat=${location.position.latitude}&lon=${location.position.longitude}&units=${units}&exclude=minutely,alerts&appid=${apiKey}`;
+      const url = baseUrl || ""
+      // const url = useMockData
+      //   ? "./mock-data/weather.json"
+      //   : `${baseUrl}?lat=${location.position.latitude}&lon=${location.position.longitude}&units=${units}&exclude=minutely,alerts&appid=${apiKey}`;
       axios
         .get(url)
         .then((response) => {

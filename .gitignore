@@ -24,4 +24,5 @@ yarn-error.log*
 
 .env
 
-/test-data
+test-data
+mock-data
