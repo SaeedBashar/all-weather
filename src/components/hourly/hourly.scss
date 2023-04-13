@@ -1,7 +1,7 @@
 @import "../../assets/scss/color-themes";
-@import "../../assets/scss/font-size";
 @import "../../assets/scss/media-queries";
-
+@import "../../assets/scss/font-size";
+@import "../../assets/scss/variables";
 
 .hourly {
   @include mobile-small-portrait {
@@ -45,7 +45,6 @@
   }
   .hourly-items-container {
     white-space: nowrap;
-    overflow-x: scroll;
     scroll-snap-type: proximity;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
@@ -69,9 +68,7 @@
       width: 75px;
       margin: 15px 5px;
       border-radius: 15px;
-      transition: all 0.5s ease;
-      transform: 250ms;
+      transition: all $animation-time ease;
     }
   }
 }
-

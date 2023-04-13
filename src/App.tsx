@@ -1,33 +1,21 @@
-import { useEffect, useState } from "react";
 import { Container } from "./components/container/container";
-import { ThemeType } from "./models";
+import { ErrorBoundary } from "react-error-boundary";
+import { Error, ErrorHandler } from "./components/Common/error/error";
 import "./App.scss";
+import { useSettings } from "./hooks";
 
-const App = () => {
-  const [theme, setTheme] = useState<string>("");
-
-  useEffect(() => {
-    const existingTheme = localStorage.getItem("theme");
-    if (
-      existingTheme &&
-      (existingTheme === "light" || existingTheme === "dark")
-    ) {
-      setTheme(existingTheme);
-    } else {
-      setTheme("light");
-      localStorage.setItem("theme", "light");
-    }
-  }, [theme]);
-
-  const changeThemeHandler = (theme: ThemeType) => {
-    setTheme(theme);
-    localStorage.setItem("theme", theme);
-  };
+export const App = () => {
+  const { settings, changeSettings } = useSettings();
 
   return (
-    <main className={theme}>
+    <main className={settings.theme}>
       <div className="main-container">
-        <Container theme={theme} changeTheme={changeThemeHandler}></Container>
+        <ErrorBoundary FallbackComponent={Error} onError={ErrorHandler}>
+          <Container
+            settings={settings}
+            changeSettings={changeSettings}
+          ></Container>
+        </ErrorBoundary>
       </div>
     </main>
   );

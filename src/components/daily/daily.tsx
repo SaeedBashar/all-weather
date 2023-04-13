@@ -1,16 +1,15 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import DailyItem from "../dailyItem/dailyItem";
+import { DailyWeatherModel, SettingsModel } from "../../models";
+import { DailyItemDetails } from "../dailyItemDetails/dailyItemDetails";
 import "./daily.scss";
-import { DailyWeatherModel } from "../../models";
-import DailyItemDetails from "../dailyItemDetails/dailyItemDetails";
 
 type DailyProps = {
-  theme: string;
-  unit: string;
+  settings: SettingsModel;
   data: DailyWeatherModel;
 };
 
-export const Daily = ({ theme, unit, data }: DailyProps) => {
+export const Daily = ({ settings, data }: DailyProps) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const clickHandler = (d: any) => {
@@ -21,36 +20,29 @@ export const Daily = ({ theme, unit, data }: DailyProps) => {
     }
   };
   return (
-    <>
-      <div className="daily">
-        <label className="title">Daily</label>
-        <div className="daily-items-container">
-          {data.daily.map((d) => (
-            <div key={d.dt}>
-              <DailyItem
-                theme={theme}
-                unit={unit}
-                data={d}
-                onClick={() => clickHandler(d)}
-              ></DailyItem>
-              <div
-                className={
-                  activeIndex === d.dt
-                    ? "daily-item-header active"
-                    : "daily-item-header"
-                }
-              >
-                <DailyItemDetails
-                  theme={theme}
-                  unit={unit}
-                  data={d}
-                ></DailyItemDetails>
-              </div>
+    <div className="daily">
+      <label className="title">Daily</label>
+      <div className="daily-items-container">
+        {data.daily.map((d) => (
+          <div key={d.dt}>
+            <DailyItem
+              settings={settings}
+              data={d}
+              onClick={() => clickHandler(d)}
+            ></DailyItem>
+            <div
+              className={
+                activeIndex === d.dt
+                  ? "daily-item-header active"
+                  : "daily-item-header"
+              }
+            >
+              <DailyItemDetails data={d}></DailyItemDetails>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

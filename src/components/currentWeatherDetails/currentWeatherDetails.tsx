@@ -12,19 +12,19 @@ export const CurrentWeatherDetails = ({ data }: CurrentWeatherProps) => {
         <div className="current-weather-details-grid-item">
           <label>Rain:</label>
           <label>{data?.rain}%</label>
-        </div>{" "}
+        </div>
         <div className="current-weather-details-grid-item">
           <label>Pressure:</label>
           <label>{data?.pressure}hPa</label>
-        </div>{" "}
+        </div>
         <div className="current-weather-details-grid-item">
           <label>Humidity:</label>
           <label>{data?.humidity}%</label>
-        </div>{" "}
+        </div>
         <div className="current-weather-details-grid-item">
           <label>Visibility:</label>
           <label>{data?.visibility} km</label>
-        </div>{" "}
+        </div>
         <div className="current-weather-details-grid-item">
           <label>Wind speed:</label>
           <label>{data ? Math.round(data.wind_speed) : ""} m/s</label>

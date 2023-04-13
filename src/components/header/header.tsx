@@ -1,14 +1,15 @@
+import React from "react";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CurrentWeatherModel, ThemeType } from "../../models";
+import { CurrentWeatherModel, SettingsModel } from "../../models";
 import "./header.scss";
 
 type HeaderProps = {
   locality?: string;
   country?: string;
   data: CurrentWeatherModel;
-  theme: string;
-  changeTheme: (theme: ThemeType) => void;
+  settings: SettingsModel;
+  changeSettings: (newSettings: object) => void;
   changeLocation: (location: string) => void;
 };
 
@@ -16,8 +17,8 @@ export const Header = ({
   locality,
   country,
   data,
-  theme,
-  changeTheme,
+  settings,
+  changeSettings,
   changeLocation,
 }: HeaderProps) => {
   const getFormatedDate = () => {
@@ -46,28 +47,46 @@ export const Header = ({
         <label className="date">{getFormatedDate()}</label>
       </div>
       <div className="settings">
+        <div className="units">
+          <span
+            className={settings.unit === "metric" ? "active" : ""}
+            onClick={() => {
+              changeSettings({ unit: "metric" });
+            }}
+          >
+            °C
+          </span>
+          <span
+            className={settings.unit !== "metric" ? "active" : ""}
+            onClick={() => {
+              changeSettings({ unit: "imperial" });
+            }}
+          >
+            °F
+          </span>
+        </div>
         <div
           className="button-theme"
           onClick={() => {
-            if (theme === "dark") changeTheme("light");
-            else changeTheme("dark");
+            if (settings.theme === "dark") changeSettings({ theme: "light" });
+            else changeSettings({ theme: "dark" });
           }}
         >
           <FontAwesomeIcon
-            icon={theme === "dark" ? faSun : faMoon}
+            icon={settings.theme === "dark" ? faSun : faMoon}
           ></FontAwesomeIcon>
         </div>
       </div>
       <div className="search">
         <input
-            className="input"
-            placeholder="Enter your location"
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                changeLocation(e.currentTarget.value);
-              }
-            }}
-          ></input>
+          className="input"
+          placeholder="Enter your location"
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              changeLocation(e.currentTarget.value);
+            }
+          }}
+        ></input>
       </div>
     </>
   );

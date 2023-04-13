@@ -1,33 +1,32 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useWeather } from "../../hooks";
-import { CurrentWeather } from "../currentWeather/currentWeather";
-import { CurrentWeatherDetails } from "../currentWeatherDetails/currentWeatherDetails";
-import { Daily } from "../daily/daily";
-import { Header } from "../header/header";
-import { Hourly } from "../hourly/hourly";
-
 import {
   CurrentWeatherModel,
   EmptyCurrentWeather,
-  ThemeType,
+  SettingsModel,
 } from "../../models";
+import { Loading } from "../Common";
+import MockData from "../Common/mockData/mockData";
+import CurrentWeather from "../currentWeather/currentWeather";
+import CurrentWeatherDetails from "../currentWeatherDetails/currentWeatherDetails";
+import Daily from "../daily/daily";
+import Header from "../header/header";
+import Hourly from "../hourly/hourly";
 import "./container.scss";
 
 type ContainerProps = {
-  theme: string;
-  changeTheme: (theme: ThemeType) => void;
+  settings: SettingsModel;
+  changeSettings: (newSettings: object) => void;
 };
 
-export const Container = ({ theme, changeTheme }: ContainerProps) => {
-  const unit: string = "metric";
-  const useMockData: boolean = true;
-
+export const Container = ({ settings, changeSettings }: ContainerProps) => {
+  const useMockData: boolean = false;
   const [currentWeatherSelectedItem, setCurrentWeatherSelectedItem] =
     useState(EmptyCurrentWeather);
   const [currentLocationName, setCurrentLocationName] = useState<string>("");
 
   const { isLoading, location, currentWeather, hourlyWeather, dailyWeather } =
-    useWeather(currentLocationName, unit, useMockData);
+    useWeather(currentLocationName, settings.unit, useMockData);
 
   useEffect(() => {
     setCurrentWeatherSelectedItem(currentWeather);
@@ -38,55 +37,38 @@ export const Container = ({ theme, changeTheme }: ContainerProps) => {
   };
 
   const changeLocationHandler = (location: string) => {
-    console.log(location);
+    setCurrentLocationName(location);
   };
 
   return (
-    <>
-      {useMockData ? (
-        <div className="info-popup">
-          The application is running in demo mode. To run the application with
-          real data please check the{" "}
-          <a href="https://github.com/gheorghedarle/React-WeatherApp">
-            documentation
-          </a>
-          .
-        </div>
-      ) : (
-        <></>
-      )}
+    <MockData useMockData={useMockData}>
       <div className="container">
-        {!isLoading ? (
+        <Loading isLoading={isLoading}>
           <div className="grid-container">
             <Header
               locality={location.locality}
               country={location.country}
               data={currentWeatherSelectedItem}
-              theme={theme}
-              changeTheme={changeTheme}
+              settings={settings}
+              changeSettings={changeSettings}
               changeLocation={changeLocationHandler}
             ></Header>
             <CurrentWeather
-              theme={theme}
-              unit={unit}
+              settings={settings}
               data={currentWeatherSelectedItem}
             ></CurrentWeather>
             <CurrentWeatherDetails
               data={currentWeatherSelectedItem.details}
             ></CurrentWeatherDetails>
             <Hourly
-              theme={theme}
-              unit={unit}
+              settings={settings}
               data={hourlyWeather}
               clickHandler={hourlyItemClickHandler}
             ></Hourly>
-            <Daily theme={theme} unit={unit} data={dailyWeather}></Daily>
+            <Daily settings={settings} data={dailyWeather}></Daily>
           </div>
-        ) : (
-          <div className="loading">Loading...</div>
-        )}
+        </Loading>
       </div>
-    </>
+    </MockData>
   );
 };
-

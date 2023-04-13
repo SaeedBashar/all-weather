@@ -1,18 +1,22 @@
-import { useState } from "react";
-import { CurrentWeatherModel, HourlyWeatherModel } from "../../models";
+import React, { useState } from "react";
+import ScrollContainer from "react-indiana-drag-scroll";
+import {
+  CurrentWeatherModel,
+  HourlyWeatherModel,
+  SettingsModel,
+} from "../../models";
 import HourlyItem from "../hourlyItem/hourlyItem";
 import "./hourly.scss";
 
 type HourlyProps = {
-  theme: string;
-  unit: string;
+  settings: SettingsModel;
   data: HourlyWeatherModel;
   clickHandler: (h: CurrentWeatherModel) => void;
 };
 
-export const Hourly = ({ theme, unit, data, clickHandler }: HourlyProps) => {
+export const Hourly = ({ settings, data, clickHandler }: HourlyProps) => {
   const [activeIndex, setActiveIndex] = useState(
-    data && data.hourly ? data.hourly[0].dt : 0
+    data && data.hourly[0] ? data.hourly[0].dt : 0
   );
 
   const onClickHandler = (h: CurrentWeatherModel) => {
@@ -21,10 +25,10 @@ export const Hourly = ({ theme, unit, data, clickHandler }: HourlyProps) => {
   };
 
   return (
-    <>
-      <div className="hourly">
-        <label className="title">Hourly</label>
-        <div className="hourly-items-container">
+    <div className="hourly">
+      <label className="title">Hourly</label>
+      <div className="hourly-items-container">
+        <ScrollContainer>
           {data.hourly.map((h) => (
             <div
               key={h.dt}
@@ -35,12 +39,12 @@ export const Hourly = ({ theme, unit, data, clickHandler }: HourlyProps) => {
               }
               onClick={() => onClickHandler(h)}
             >
-              <HourlyItem theme={theme} unit={unit} data={h}></HourlyItem>
+              <HourlyItem settings={settings} data={h}></HourlyItem>
             </div>
           ))}
-        </div>
+        </ScrollContainer>
       </div>
-    </>
+    </div>
   );
 };
 

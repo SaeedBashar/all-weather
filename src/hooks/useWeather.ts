@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useErrorHandler } from "react-error-boundary";
 import { useLocation } from ".";
 import {
   CurrentWeatherModel,
@@ -13,7 +14,7 @@ import {
 
 export const useWeather = (
   locationName: string,
-  units: string,
+  unit: string,
   useMockData: boolean
 ) => {
   const baseUrl = process.env.REACT_APP_FAKERJS_JSON_SERVER_URL;
@@ -30,14 +31,17 @@ export const useWeather = (
   const [dailyWeather, setDailyWeather] = useState<DailyWeatherModel>(
     EmptyDailyWeatherModel
   );
+  const handleError = useErrorHandler();
 
   useEffect(() => {
     setIsLoading(true);
     if (location) {
-      const url = baseUrl || ""
+      const url = useMockData
+        ? `./mock-data/weather_${unit}.json`
+        : `${baseUrl}`
       // const url = useMockData
-      //   ? "./mock-data/weather.json"
-      //   : `${baseUrl}?lat=${location.position.latitude}&lon=${location.position.longitude}&units=${units}&exclude=minutely,alerts&appid=${apiKey}`;
+      //   ? `./mock-data/weather_${unit}.json`
+      //   : `${baseUrl}?lat=${location.position.latitude}&lon=${location.position.longitude}&units=${unit}&exclude=minutely,alerts&appid=${apiKey}`;
       axios
         .get(url)
         .then((response) => {
@@ -45,11 +49,14 @@ export const useWeather = (
           setHourly(response.data.hourly);
           setDaily(response.data.daily);
         })
+        .catch((error) => {
+          handleError(error);
+        })
         .finally(() => {
-          setIsLoading(false);
+          setTimeout(() => setIsLoading(false), 100);
         });
     }
-  }, [location, units, useMockData, baseUrl, apiKey]);
+  }, [location, unit, useMockData, baseUrl, apiKey, handleError]);
 
   const setCurrent = (data: any) => {
     setCurrentWeather({
