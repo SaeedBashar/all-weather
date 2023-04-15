@@ -1,7 +1,9 @@
-import React from "react";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import DarkModeToggle from 'react-dark-mode-toggle';
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CurrentWeatherModel, SettingsModel } from "../../models";
+import { Search } from "../search/searchElement";
 import "./header.scss";
 
 type HeaderProps = {
@@ -77,17 +79,7 @@ export const Header = ({
           ></FontAwesomeIcon>
         </div>
       </div>
-      <div className="search">
-        <input
-          className="input"
-          placeholder="Enter your location"
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              changeLocation(e.currentTarget.value);
-            }
-          }}
-        ></input>
-      </div>
+      <Search changeLocation={(value)=>changeLocation(value)} />
     </>
   );
 };

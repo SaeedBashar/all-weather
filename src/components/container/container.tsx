@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useWeather } from "../../hooks";
 import {
   CurrentWeatherModel,
   EmptyCurrentWeather,
   SettingsModel,
 } from "../../models";
-import { Loading } from "../Common";
 import MockData from "../Common/mockData/mockData";
 import CurrentWeather from "../currentWeather/currentWeather";
 import CurrentWeatherDetails from "../currentWeatherDetails/currentWeatherDetails";
@@ -13,6 +12,7 @@ import Daily from "../daily/daily";
 import Header from "../header/header";
 import Hourly from "../hourly/hourly";
 import "./container.scss";
+import Spinner from "../Common/spinner/spinner";
 
 type ContainerProps = {
   settings: SettingsModel;
@@ -43,7 +43,7 @@ export const Container = ({ settings, changeSettings }: ContainerProps) => {
   return (
     <MockData useMockData={useMockData}>
       <div className="container">
-        <Loading isLoading={isLoading}>
+        <Spinner isLoading={isLoading}>
           <div className="grid-container">
             <Header
               locality={location.locality}
@@ -67,7 +67,7 @@ export const Container = ({ settings, changeSettings }: ContainerProps) => {
             ></Hourly>
             <Daily settings={settings} data={dailyWeather}></Daily>
           </div>
-        </Loading>
+        </Spinner>
       </div>
     </MockData>
   );
