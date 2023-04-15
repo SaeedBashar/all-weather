@@ -6,7 +6,6 @@
 
 .container {
   @include mobile-small-portrait {
-    width: $mobile-small-portrait-width;
     padding: $mobile-small-portrait-padding-top-bottom
       $mobile-small-portrait-padding-left-right;
     .grid-container {
@@ -19,7 +18,6 @@
     }
   }
   @include mobile-small-landscape {
-    width: $mobile-small-landscape-width;
     padding: $mobile-small-landscape-padding-top-bottom
       $mobile-small-landscape-padding-left-right;
     .grid-container {
@@ -32,7 +30,6 @@
     }
   }
   @include mobile-portrait {
-    width: $mobile-portrait-width;
     padding: $mobile-portrait-padding-top-bottom
       $mobile-portrait-padding-left-right;
     .grid-container {
@@ -45,7 +42,6 @@
     }
   }
   @include mobile-landscape {
-    width: $mobile-landscape-width;
     padding: $mobile-landscape-padding-top-bottom
       $mobile-landscape-padding-left-right;
     .grid-container {
@@ -58,7 +54,6 @@
     }
   }
   @include tablet-portrait {
-    width: $tablet-portrait-width;
     padding: $tablet-portrait-padding-top-bottom
       $tablet-portrait-padding-left-right;
     .grid-container {
@@ -71,7 +66,6 @@
     }
   }
   @include tablet-landscape {
-    width: $tablet-landscape-width;
     padding: $tablet-landscape-padding-top-bottom
       $tablet-landscape-padding-left-right;
     .grid-container {
@@ -84,7 +78,6 @@
     }
   }
   @include desktop {
-    width: $desktop-width;
     padding: $desktop-padding-top-bottom $desktop-padding-left-right;
     .grid-container {
       display: grid;

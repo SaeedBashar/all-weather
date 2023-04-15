@@ -28,7 +28,7 @@ export const Hourly = ({ settings, data, clickHandler }: HourlyProps) => {
     <div className="hourly">
       <label className="title">Hourly</label>
       <div className="hourly-items-container">
-        <ScrollContainer>
+        <ScrollContainer horizontal>
           {data.hourly.map((h) => (
             <div
               key={h.dt}

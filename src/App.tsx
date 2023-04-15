@@ -6,7 +6,6 @@ import { useSettings } from "./hooks";
 
 export const App = () => {
   const { settings, changeSettings } = useSettings();
-
   return (
     <main className={settings.theme}>
       <div className="main-container">

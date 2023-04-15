@@ -10,7 +10,7 @@ body {
 
 .main-container {
   @include theme() {
-    background-color: get-color("background");
+    background : get-color("background");
   }
   min-height: 100vh;
   height: auto !important;

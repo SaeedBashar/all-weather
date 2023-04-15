@@ -6,7 +6,7 @@ import { EmptyLocationModel, LocationModel } from "../models";
 export const useLocation = (locationName: string, useMockData: boolean) => {
   const apiKey = process.env.REACT_APP_GEOLOCATION_API_KEY;
   const geocodeBaseUrl = process.env.REACT_APP_GEOLOCATION_GEOCODE_BASEURL;
-
+  console.log(apiKey, geocodeBaseUrl)
   const [location, setLocation] = useState<LocationModel>(EmptyLocationModel);
   const handleError = useErrorHandler();
 
@@ -19,6 +19,7 @@ export const useLocation = (locationName: string, useMockData: boolean) => {
             : `${geocodeBaseUrl}?latlng=${position.coords.latitude},${position.coords.longitude}&result_type=locality&key=${apiKey}`
         )
         .then((res: any) => {
+          console.log(res)
           if (res.data && res.data.results[0]) {
             const formattedAddress =
               res.data.results[0].formatted_address.split(",");
@@ -48,6 +49,7 @@ export const useLocation = (locationName: string, useMockData: boolean) => {
             : `${geocodeBaseUrl}?address=${locationName}&key=${apiKey}`
         )
         .then((res: any) => {
+          console.log(res)
           if (res.data && res.data.results[0]) {
             const location = res.data.results[0].geometry.location;
             const formattedAddress =

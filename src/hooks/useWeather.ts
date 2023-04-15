@@ -45,6 +45,7 @@ export const useWeather = (
       axios
         .get(url)
         .then((response) => {
+          console.log(response.data)
           setCurrent(response.data.current);
           setHourly(response.data.hourly);
           setDaily(response.data.daily);

@@ -10,7 +10,7 @@ export const Error = ({ error }: ErrorProps) => {
     <>
       <div className="error-container">
         <img
-          src={require("../../../assets/img/error.png")}
+          src={require("../../../assets/img/not-found.svg")}
           className="error-image"
           alt=""
         />
