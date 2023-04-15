@@ -40,7 +40,6 @@ export const Header = ({
     });
     return `${date} ${year} ${hour}`;
   };
-
   return (
     <>
       <div className="location">
@@ -67,7 +66,11 @@ export const Header = ({
             °F
           </span>
         </div>
-        <div
+        <DarkModeToggle checked={settings.theme === "dark"} onChange={() => {
+          if (settings.theme === "dark") changeSettings({ theme: "light" });
+          else changeSettings({ theme: "dark" });
+        }} size={60} />
+        {/* <div
           className="button-theme"
           onClick={() => {
             if (settings.theme === "dark") changeSettings({ theme: "light" });
@@ -77,7 +80,7 @@ export const Header = ({
           <FontAwesomeIcon
             icon={settings.theme === "dark" ? faSun : faMoon}
           ></FontAwesomeIcon>
-        </div>
+        </div> */}
       </div>
       <Search changeLocation={(value)=>changeLocation(value)} />
     </>

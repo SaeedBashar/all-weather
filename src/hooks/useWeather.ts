@@ -11,6 +11,7 @@ import {
   EmptyHourlyWeatherModel,
   HourlyWeatherModel,
 } from "../models";
+import { fahrenheitToCelcius } from "../utils/utils";
 
 export const useWeather = (
   locationName: string,
@@ -19,9 +20,7 @@ export const useWeather = (
 ) => {
   const baseUrl = process.env.REACT_APP_FAKERJS_JSON_SERVER_URL;
   const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY;
-
-  const { location } = useLocation(locationName, useMockData);
-
+  const { location, setLoc } = useLocation(locationName, useMockData);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentWeather, setCurrentWeather] =
     useState<CurrentWeatherModel>(EmptyCurrentWeather);
@@ -32,9 +31,20 @@ export const useWeather = (
     EmptyDailyWeatherModel
   );
   const handleError = useErrorHandler();
-
   useEffect(() => {
     setIsLoading(true);
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${locationName || 'kumasi'}&appid=${apiKey}`)
+    .then(res=>{
+      console.log(res)
+      console.log(location)
+      if(!location.locality) setLoc(res.data.sys.country, res.data.name)
+      setCurrent(res.data);
+    })
+    axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${locationName || 'kumasi'}&appid=${apiKey}`)
+    .then(res=>{
+      console.log(res)
+        setHourly(res.data.list)
+    })
     if (location) {
       const url = useMockData
         ? `./mock-data/weather_${unit}.json`
@@ -46,8 +56,8 @@ export const useWeather = (
         .get(url)
         .then((response) => {
           console.log(response.data)
-          setCurrent(response.data.current);
-          setHourly(response.data.hourly);
+          // setCurrent(response.data.current);
+          // setHourly(response.data.hourly);
           setDaily(response.data.daily);
         })
         .catch((error) => {
@@ -60,20 +70,21 @@ export const useWeather = (
   }, [location, unit, useMockData, baseUrl, apiKey, handleError]);
 
   const setCurrent = (data: any) => {
+    console.log(data)
     setCurrentWeather({
       dt: data.dt,
       weather: {
         icon: data.weather[0].icon,
         description: data.weather[0].description,
       },
-      temp: data.temp,
-      feels_like: data.feels_like,
+      temp: unit === 'metric' ? fahrenheitToCelcius(data.main.temp) : data.main.temp,
+      feels_like: data.main.feels_like,
       details: {
         rain: 0,
         visibility: data.visibility / 1000,
-        humidity: data.humidity,
-        pressure: data.pressure,
-        wind_speed: data.wind_speed,
+        humidity: data.main.humidity,
+        pressure: data.main.pressure,
+        wind_speed: data.wind.speed,
       },
     });
   };
@@ -87,14 +98,14 @@ export const useWeather = (
           icon: item.weather[0].icon,
           description: item.weather[0].description,
         },
-        temp: item.temp,
-        feels_like: item.feels_like,
+        temp: unit === 'metric' ? fahrenheitToCelcius(item.main.temp) : item.main.temp,
+        feels_like: item.main.feels_like,
         details: {
           rain: item.pop * 100,
           visibility: item.visibility / 1000,
-          humidity: item.humidity,
-          pressure: item.pressure,
-          wind_speed: item.wind_speed,
+          humidity: item.main.humidity,
+          pressure: item.main.pressure,
+          wind_speed: item.wind.speed,
         },
       });
     });

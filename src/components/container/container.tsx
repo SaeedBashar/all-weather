@@ -5,7 +5,6 @@ import {
   EmptyCurrentWeather,
   SettingsModel,
 } from "../../models";
-import MockData from "../Common/mockData/mockData";
 import CurrentWeather from "../currentWeather/currentWeather";
 import CurrentWeatherDetails from "../currentWeatherDetails/currentWeatherDetails";
 import Daily from "../daily/daily";
@@ -41,34 +40,32 @@ export const Container = ({ settings, changeSettings }: ContainerProps) => {
   };
 
   return (
-    <MockData useMockData={useMockData}>
-      <div className="container">
-        <Spinner isLoading={isLoading}>
-          <div className="grid-container">
-            <Header
-              locality={location.locality}
-              country={location.country}
-              data={currentWeatherSelectedItem}
-              settings={settings}
-              changeSettings={changeSettings}
-              changeLocation={changeLocationHandler}
-            ></Header>
-            <CurrentWeather
-              settings={settings}
-              data={currentWeatherSelectedItem}
-            ></CurrentWeather>
-            <CurrentWeatherDetails
-              data={currentWeatherSelectedItem.details}
-            ></CurrentWeatherDetails>
-            <Hourly
-              settings={settings}
-              data={hourlyWeather}
-              clickHandler={hourlyItemClickHandler}
-            ></Hourly>
-            <Daily settings={settings} data={dailyWeather}></Daily>
-          </div>
-        </Spinner>
-      </div>
-    </MockData>
+    <div className="container">
+      <Spinner isLoading={isLoading}>
+        <div className="grid-container">
+          <Header
+            locality={location.locality}
+            country={location.country}
+            data={currentWeatherSelectedItem}
+            settings={settings}
+            changeSettings={changeSettings}
+            changeLocation={changeLocationHandler}
+          ></Header>
+          <CurrentWeather
+            settings={settings}
+            data={currentWeatherSelectedItem}
+          ></CurrentWeather>
+          <CurrentWeatherDetails
+            data={currentWeatherSelectedItem.details}
+          ></CurrentWeatherDetails>
+          <Hourly
+            settings={settings}
+            data={hourlyWeather}
+            clickHandler={hourlyItemClickHandler}
+          ></Hourly>
+          <Daily settings={settings} data={dailyWeather}></Daily>
+        </div>
+      </Spinner>
+    </div>
   );
 };

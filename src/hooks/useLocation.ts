@@ -21,15 +21,17 @@ export const useLocation = (locationName: string, useMockData: boolean) => {
         .then((res: any) => {
           console.log(res)
           if (res.data && res.data.results[0]) {
-            const formattedAddress =
-              res.data.results[0].formatted_address.split(",");
+            // const formattedAddress =
+            //   res.data.results[0].formatted_address.split(",");
             setLocation({
               position: {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
               },
-              locality: formattedAddress[0].replace(/\s/g, ""),
-              country: formattedAddress[1].replace(/\s/g, ""),
+              // locality: formattedAddress[0].replace(/\s/g, ""),
+              // country: formattedAddress[1].replace(/\s/g, ""),
+              locality: "",
+              country: ""
             });
           }
         })
@@ -52,15 +54,17 @@ export const useLocation = (locationName: string, useMockData: boolean) => {
           console.log(res)
           if (res.data && res.data.results[0]) {
             const location = res.data.results[0].geometry.location;
-            const formattedAddress =
-              res.data.results[0].formatted_address.split(",");
+            // const formattedAddress =
+            //   res.data.results[0].formatted_address.split(",");
             setLocation({
               position: {
                 latitude: location.lat,
                 longitude: location.lng,
               },
-              locality: formattedAddress[0].replace(/\s/g, ""),
-              country: formattedAddress[1].replace(/\s/g, ""),
+              // locality: formattedAddress[0].replace(/\s/g, ""),
+              // country: formattedAddress[1].replace(/\s/g, ""),
+              locality: "",
+              country: ""
             });
           }
         })
@@ -88,7 +92,8 @@ export const useLocation = (locationName: string, useMockData: boolean) => {
     }
   }, [getCoordsByLocationName, getLocationDetails, locationName]);
 
+  const setLoc = (ctr: string, loc:string)=>setLocation({...location, locality: loc, country: ctr})
   return {
-    location,
+    location, setLoc
   };
 };
