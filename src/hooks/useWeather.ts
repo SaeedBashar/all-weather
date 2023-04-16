@@ -50,10 +50,7 @@ export const useWeather = (
       axios
         .get(`./mock-data/weather_${unit}.json`)
         .then((response) => {
-          console.log(response.data)
-          // setCurrent(response.data.current);
-          // setHourly(response.data.hourly);
-          setDaily(response.data.daily);
+          setDaily(response.data.weather.daily);
         })
         .catch((error) => {
           handleError(error);
