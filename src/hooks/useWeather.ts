@@ -18,8 +18,8 @@ export const useWeather = (
   unit: string,
   useMockData: boolean
 ) => {
-  const baseUrl = process.env.REACT_APP_FAKERJS_JSON_SERVER_URL;
-  const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY;
+  const baseUrl = process.env.REACT_APP_OPENWEATHER_URL;
+  const apiKey = process.env.REACT_APP_OPENWEATHER_KEY;
   const { location, setLoc } = useLocation(locationName, useMockData);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentWeather, setCurrentWeather] =
@@ -33,27 +33,22 @@ export const useWeather = (
   const handleError = useErrorHandler();
   useEffect(() => {
     setIsLoading(true);
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${locationName || 'kumasi'}&appid=${apiKey}`)
+    axios.get(`${baseUrl}/weather?q=${locationName || 'kumasi'}&appid=${apiKey}`)
     .then(res=>{
       console.log(res)
       console.log(location)
       if(!location.locality) setLoc(res.data.sys.country, res.data.name)
       setCurrent(res.data);
     })
-    axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${locationName || 'kumasi'}&appid=${apiKey}`)
+    axios.get(`${baseUrl}/forecast?q=${locationName || 'kumasi'}&appid=${apiKey}`)
     .then(res=>{
       console.log(res)
         setHourly(res.data.list)
     })
     if (location) {
-      const url = useMockData
-        ? `./mock-data/weather_${unit}.json`
-        : `${baseUrl}`
-      // const url = useMockData
-      //   ? `./mock-data/weather_${unit}.json`
-      //   : `${baseUrl}?lat=${location.position.latitude}&lon=${location.position.longitude}&units=${unit}&exclude=minutely,alerts&appid=${apiKey}`;
+      
       axios
-        .get(url)
+        .get(`./mock-data/weather_${unit}.json`)
         .then((response) => {
           console.log(response.data)
           // setCurrent(response.data.current);
