@@ -1,7 +1,7 @@
 # All Weather
 
-<img src="https://github.com/saeedbashar/React-WeatherApp/blob/main/screenshots/lightMode.png?raw=true" Width="400" />
-<img src="https://github.com/saeedbashar/React-WeatherApp/blob/main/screenshots/darkMode.png?raw=true" Width="400" />
+<img src="https://github.com/saeedbashar/all-Weather/blob/main/screenshots/lightMode.png?raw=true" Width="400" />
+<img src="https://github.com/saeedbashar/all-Weather/blob/main/screenshots/darkMode.png?raw=true" Width="400" />
 
 
 ## Features
