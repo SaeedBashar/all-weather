@@ -1,7 +1,5 @@
-import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import DarkModeToggle from 'react-dark-mode-toggle';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CurrentWeatherModel, SettingsModel } from "../../models";
 import { Search } from "../search/searchElement";
 import "./header.scss";
@@ -70,17 +68,6 @@ export const Header = ({
           if (settings.theme === "dark") changeSettings({ theme: "light" });
           else changeSettings({ theme: "dark" });
         }} size={60} />
-        {/* <div
-          className="button-theme"
-          onClick={() => {
-            if (settings.theme === "dark") changeSettings({ theme: "light" });
-            else changeSettings({ theme: "dark" });
-          }}
-        >
-          <FontAwesomeIcon
-            icon={settings.theme === "dark" ? faSun : faMoon}
-          ></FontAwesomeIcon>
-        </div> */}
       </div>
       <Search changeLocation={(value)=>changeLocation(value)} />
     </>

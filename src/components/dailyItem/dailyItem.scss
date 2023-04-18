@@ -33,6 +33,15 @@
     @include theme() {
       color: get-color("text-secondary");
     }
+    svg {
+      fill: white;
+      font-size: 20px;
+      display: inline-block;
+      width: 10px;
+      height: 15px;
+      margin: auto 4px;
+      padding-top: 0px;
+    }
     cursor: inherit;
   }
 }

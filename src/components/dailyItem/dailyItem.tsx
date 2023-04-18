@@ -28,7 +28,10 @@ export const DailyItem = ({ settings, data, onClick }: DailyItemProps) => {
       </label>
       <label className="description">{data.weather.description}</label>
       <label className="min-max">
-        {Math.round(data.minTemp)}°{unitSymbol} / {Math.round(data.maxTemp)}°
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="21" viewBox="0 0 16 21"><path d="M20,15H15V3a1,1,0,0,0-1-1H10A1,1,0,0,0,9,3V15H4l8,8,8-8Z" transform="translate(20 23) rotate(180)"/></svg>
+        {Math.round(data.minTemp)}°{unitSymbol} 
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="21" viewBox="0 0 16 21"><path  d="M20,15H15V3a1,1,0,0,0-1-1H10A1,1,0,0,0,9,3V15H4l8,8,8-8Z" transform="translate(-4 -2)"/></svg>
+        {Math.round(data.maxTemp)}°
         {unitSymbol}
       </label>
     </div>

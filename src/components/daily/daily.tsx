@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import DailyItem from "../dailyItem/dailyItem";
 import { DailyWeatherModel, SettingsModel } from "../../models";
 import { DailyItemDetails } from "../dailyItemDetails/dailyItemDetails";
