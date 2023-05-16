@@ -1,0 +1,31 @@
+@import "../../../assets/scss/color-themes";
+
+.start {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    width: 80%;
+    margin: auto;
+}
+
+.start-top {
+    margin-bottom: 20px
+}
+
+.app-name {
+    @include theme() {
+        color: get-color("text");
+      }
+}
+
+.toggle {
+    text-align: right;
+}
+
+.search {
+    display: flex;
+    justify-content: flex-end;
+}

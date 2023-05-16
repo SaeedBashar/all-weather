@@ -13,7 +13,7 @@ import Header from "../header/header";
 import Hourly from "../hourly/hourly";
 import "./container.scss";
 import Spinner from "../Common/spinner/spinner";
-import { celciusToFahrenheit, fahrenheitToCelcius } from "../../utils/utils";
+import { Start }from '../Common/start/start';
 
 type ContainerProps = {
   settings: SettingsModel;
@@ -43,32 +43,33 @@ export const Container = ({ settings, changeSettings }: ContainerProps) => {
   }, []);
 
   return (
-    <div className="container">
+      // <Start/>
       <Spinner isLoading={isLoading}>
-        <div className="grid-container">
-          <Header
-            locality={location.locality}
-            country={location.country}
-            data={currentWeatherSelectedItem}
-            settings={settings}
-            changeSettings={changeSettings}
-            changeLocation={changeLocationHandler}
-          ></Header>
-          <CurrentWeather
-            settings={settings}
-            data={currentWeatherSelectedItem}
-          ></CurrentWeather>
-          <CurrentWeatherDetails
-            data={currentWeatherSelectedItem.details}
-          ></CurrentWeatherDetails>
-          <Hourly
-            settings={settings}
-            data={hourlyWeather}
-            clickHandler={hourlyItemClickHandler}
-          ></Hourly>
-          <Daily settings={settings} data={dailyWeather}></Daily>
+        <div className="container">
+          <div className="grid-container">
+            <Header
+              locality={location.locality}
+              country={location.country}
+              data={currentWeatherSelectedItem}
+              settings={settings}
+              changeSettings={changeSettings}
+              changeLocation={changeLocationHandler}
+            ></Header>
+            <CurrentWeather
+              settings={settings}
+              data={currentWeatherSelectedItem}
+            ></CurrentWeather>
+            <CurrentWeatherDetails
+              data={currentWeatherSelectedItem.details}
+            ></CurrentWeatherDetails>
+            <Hourly
+              settings={settings}
+              data={hourlyWeather}
+              clickHandler={hourlyItemClickHandler}
+            ></Hourly>
+            <Daily settings={settings} data={dailyWeather}></Daily>
+          </div>
         </div>
       </Spinner>
-    </div>
   );
 };
