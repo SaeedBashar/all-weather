@@ -1,8 +1,8 @@
 
 import { configureStore } from '@reduxjs/toolkit';
-import { settingsReducer } from './reducers/settings';
+import { settingsReducer } from './reducers/settingsReducer';
 import creatSagaMiddleware from 'redux-saga';
-import { watchEvents } from '../saga/action';
+import { watchEvents } from '../saga/';
 
 const sagaMiddleware = creatSagaMiddleware();
 

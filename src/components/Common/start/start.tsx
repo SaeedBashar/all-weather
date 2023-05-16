@@ -1,6 +1,5 @@
 import DarkModeToggle from 'react-dark-mode-toggle';
 import { useDispatch, useSelector } from 'react-redux';
-import { init_setTheme } from '../../../store/reducers/settings';
 
 import { Search } from '../../search/searchElement';
 
@@ -19,13 +18,13 @@ export const Start = ()=>{
                         checked={theme === 'dark'} 
                         onChange={() => {
                             theme === 'dark' ?
-                                dispatch(init_setTheme({ theme: "light" })) :
-                                dispatch(init_setTheme({ theme: "dark" }))
+                                dispatch({ type: "init_setTheme", theme: "light"}) :
+                                dispatch({ type: "init_setTheme", theme: "dark"})
                         }} 
                     size={60} />
                 </div>
             </div>
-            <Search changeLocation={()=>{}}/>
+            <Search changeLocation={(value)=>{ dispatch({ type: "init_setCurrentLocation", location: value}) }}/>
         </div>
     )
 }
