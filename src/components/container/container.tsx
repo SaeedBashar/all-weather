@@ -43,33 +43,33 @@ export const Container = ({ settings, changeSettings }: ContainerProps) => {
   }, []);
 
   return (
-      // <Start/>
-      <Spinner isLoading={isLoading}>
-        <div className="container">
-          <div className="grid-container">
-            <Header
-              locality={location.locality}
-              country={location.country}
-              data={currentWeatherSelectedItem}
-              settings={settings}
-              changeSettings={changeSettings}
-              changeLocation={changeLocationHandler}
-            ></Header>
-            <CurrentWeather
-              settings={settings}
-              data={currentWeatherSelectedItem}
-            ></CurrentWeather>
-            <CurrentWeatherDetails
-              data={currentWeatherSelectedItem.details}
-            ></CurrentWeatherDetails>
-            <Hourly
-              settings={settings}
-              data={hourlyWeather}
-              clickHandler={hourlyItemClickHandler}
-            ></Hourly>
-            <Daily settings={settings} data={dailyWeather}></Daily>
-          </div>
-        </div>
-      </Spinner>
+      <Start/>
+      // <Spinner isLoading={isLoading}>
+      //   <div className="container">
+      //     <div className="grid-container">
+      //       <Header
+      //         locality={location.locality}
+      //         country={location.country}
+      //         data={currentWeatherSelectedItem}
+      //         settings={settings}
+      //         changeSettings={changeSettings}
+      //         changeLocation={changeLocationHandler}
+      //       ></Header>
+      //       <CurrentWeather
+      //         settings={settings}
+      //         data={currentWeatherSelectedItem}
+      //       ></CurrentWeather>
+      //       <CurrentWeatherDetails
+      //         data={currentWeatherSelectedItem.details}
+      //       ></CurrentWeatherDetails>
+      //       <Hourly
+      //         settings={settings}
+      //         data={hourlyWeather}
+      //         clickHandler={hourlyItemClickHandler}
+      //       ></Hourly>
+      //       <Daily settings={settings} data={dailyWeather}></Daily>
+      //     </div>
+      //   </div>
+      // </Spinner>
   );
 };
