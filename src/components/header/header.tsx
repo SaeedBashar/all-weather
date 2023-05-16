@@ -21,6 +21,7 @@ export const Header = ({
   changeSettings,
   changeLocation,
 }: HeaderProps) => {
+  
   const getFormatedDate = () => {
     const selectedDate = new Date(data.dt * 1000);
     var date = selectedDate.toLocaleString("en-GB", {

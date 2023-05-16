@@ -1,7 +1,7 @@
-import { delay, put } from "redux-saga/effects";
+import { put } from "redux-saga/effects";
 import axios from "axios";
 import { openWeatherApiUrl, openWeatherApiKey } from "../utils/config";
-import { getFormatedCurrentWeather } from "../utils/utils";
+import { getFormatedCurrentWeather, getFormatedDailyWeather, getFormatedHourlyWeather } from "../utils/utils";
 
 
 const baseUrl = openWeatherApiUrl;
@@ -30,3 +30,36 @@ export function* handleCurrentWeather(action:any){
     }
 }
 
+
+export function* handleDailyWeather(action:any){
+    try{
+        const res : { // Returned Type To Suppress Error
+            data: {
+                weather: {
+                    daily:[]
+                }
+            }
+        } = yield axios.get(`./mock-data/weather_${action.unit}.json`)
+
+        const daily : [] = yield getFormatedDailyWeather(res.data.weather.daily)
+
+        yield put({type: 'weather/getDailyWeather', payload: {daily}})
+    }catch(e){
+        console.log(e)
+    }
+}
+
+export function* handleHourlyWeather(action:any){
+    try{
+        const res : { // Returned Type To Suppress Error
+            data: {
+                list: []
+            }
+        } = yield axios.get(`${baseUrl}/forecast?q=${action.locationName}&appid=${apiKey}`)
+
+        const hourly : [] = yield getFormatedHourlyWeather(res.data.list, action.unit)
+        yield put({type: 'weather/getHourlyWeather', payload: {hourly}})
+    }catch(e){
+        console.log(e)
+    }
+}

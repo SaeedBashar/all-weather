@@ -23,15 +23,34 @@ import { Start }from '../Common/start/start';
 
 export const Container = () => {
   console.log('[Container] running...')
-  const currentLocationName = useSelector((s:any)=>s.settings.currentLocation);
+  const {
+    currentLocationName, 
+    currentWeatherSelectedItem,
+    hourlyWeather, dailyWeather, location
+  } = useSelector((s:any)=>(
+    {
+    currentLocationName : s.settings.currentLocation,
+    currentWeatherSelectedItem : s.weather.currentWeather,
+    hourlyWeather: s.weather.hourlyWeather,
+    dailyWeather: s.weather.dailyWeather,
+    location: s.weather.location
+  }));
   const dispatch = useDispatch()
-  console.log(currentLocationName)
+  
   useEffect(()=>{
     dispatch({
       type: 'init_setCurrentWeather', 
       locationName: currentLocationName, 
       unit: 'metric'})
-  }, [])
+    dispatch({
+      type: 'init_setDailyWeather',  
+      unit: 'metric'})
+      dispatch({
+        type: 'init_setHourlyWeather', 
+        locationName: currentLocationName, 
+        unit: 'metric'})
+  }, [currentLocationName])
+  
   // export const Container = ({ settings, changeSettings }: ContainerProps) => {
   // const [currentWeatherSelectedItem, setCurrentWeatherSelectedItem] =
   //   useState(EmptyCurrentWeather);

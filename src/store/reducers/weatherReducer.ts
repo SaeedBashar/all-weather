@@ -22,9 +22,15 @@ const weatherSlice = createSlice({
                 location : {...payload.location},
                 currentWeather: {...payload.currentWeather}
             }
+        },
+        getDailyWeather : (state, { payload }) => {
+            return {...state, dailyWeather: payload.daily}
+        },
+        getHourlyWeather : (state, { payload }) => {
+            return {...state, hourlyWeather: payload.hourly}
         }
     }
 })
 
-export const { getCurrentWeather } = weatherSlice.actions
+export const { getCurrentWeather, getDailyWeather } = weatherSlice.actions
 export const weatherReducer = weatherSlice.reducer
