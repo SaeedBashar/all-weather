@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 import { useWeather } from "../../hooks";
 import {
@@ -24,7 +24,14 @@ import { Start }from '../Common/start/start';
 export const Container = () => {
   console.log('[Container] running...')
   const currentLocationName = useSelector((s:any)=>s.settings.currentLocation);
+  const dispatch = useDispatch()
   console.log(currentLocationName)
+  useEffect(()=>{
+    dispatch({
+      type: 'init_setCurrentWeather', 
+      locationName: currentLocationName, 
+      unit: 'metric'})
+  }, [])
   // export const Container = ({ settings, changeSettings }: ContainerProps) => {
   // const [currentWeatherSelectedItem, setCurrentWeatherSelectedItem] =
   //   useState(EmptyCurrentWeather);
