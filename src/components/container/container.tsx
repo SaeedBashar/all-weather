@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect,  } from "react";
 import { useWeather } from "../../hooks";
 import {
   CurrentWeatherModel,
@@ -38,18 +38,20 @@ export const Container = () => {
   const dispatch = useDispatch()
   
   useEffect(()=>{
-    dispatch({
-      type: 'init_setCurrentWeather', 
-      locationName: currentLocationName, 
-      unit: 'metric'})
-    dispatch({
-      type: 'init_setDailyWeather',  
-      unit: 'metric'})
+    if(currentLocationName){
+      dispatch({
+        type: 'init_setCurrentWeather', 
+        locationName: currentLocationName, 
+        unit: 'metric'})
+      dispatch({
+        type: 'init_setDailyWeather',  
+        unit: 'metric'})
       dispatch({
         type: 'init_setHourlyWeather', 
         locationName: currentLocationName, 
         unit: 'metric'})
-  }, [currentLocationName])
+    }
+  }, [currentLocationName, dispatch])
   
   // export const Container = ({ settings, changeSettings }: ContainerProps) => {
   // const [currentWeatherSelectedItem, setCurrentWeatherSelectedItem] =
@@ -79,14 +81,7 @@ export const Container = () => {
         currentLocationName.trim() ? 
             <div className="container">
             <div className="grid-container">
-              {/* <Header
-                locality={location.locality}
-                country={location.country}
-                data={currentWeatherSelectedItem}
-                settings={settings}
-                changeSettings={changeSettings}
-                changeLocation={changeLocationHandler}
-              ></Header> */}
+              <Header/>
               {/* <CurrentWeather
                 settings={settings}
                 data={currentWeatherSelectedItem}

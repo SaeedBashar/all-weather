@@ -7,7 +7,7 @@ const settingsSlice = createSlice({
     initialState: getInitialSettingsState(),
     reducers : {
         setTheme : (state, { payload })=>({...state, theme: payload.theme}),
-        setUnit : (state, { payload })=>({...state, theme: payload.unit}),
+        setUnit : (state, { payload })=>({...state, unit: payload.unit}),
         setCurrentLocation : (state, { payload })=>({...state, currentLocation: payload.location})
     }
 })

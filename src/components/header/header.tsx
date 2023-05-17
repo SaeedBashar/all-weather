@@ -1,29 +1,25 @@
 import DarkModeToggle from 'react-dark-mode-toggle';
-
-import { CurrentWeatherModel, SettingsModel } from "../../models";
+import { useDispatch, useSelector } from 'react-redux';
 import { Search } from "../search/searchElement";
 import "./header.scss";
 
-type HeaderProps = {
-  locality?: string;
-  country?: string;
-  data: CurrentWeatherModel;
-  settings: SettingsModel;
-  changeSettings: (newSettings: object) => void;
-  changeLocation: (location: string) => void;
-};
 
-export const Header = ({
-  locality,
-  country,
-  data,
-  settings,
-  changeSettings,
-  changeLocation,
-}: HeaderProps) => {
-  
+export const Header = () => {
+
+  const { 
+    currentWeather, 
+    location, theme, unit
+  } = useSelector((s:any)=>(
+    {
+    currentWeather : s.weather.currentWeather,
+    location: s.weather.location,
+    theme: s.settings.theme,
+    unit: s.settings.unit
+  }));
+  const dispatch = useDispatch()
+
   const getFormatedDate = () => {
-    const selectedDate = new Date(data.dt * 1000);
+    const selectedDate = new Date(currentWeather.dt * 1000);
     var date = selectedDate.toLocaleString("en-GB", {
       day: "numeric",
       weekday: "long",
@@ -42,35 +38,42 @@ export const Header = ({
   return (
     <>
       <div className="location">
-        <label className="city">{locality}</label>
-        <label className="country">{country}</label>
+        <label className="city">{location.locality}</label>
+        <label className="country">{location.country}</label>
         <label className="date">{getFormatedDate()}</label>
       </div>
       <div className="settings">
         <div className="units">
           <span
-            className={settings.unit === "metric" ? "active" : ""}
+            className={unit === "metric" ? "active" : ""}
             onClick={() => {
-              changeSettings({ unit: "metric" });
+              // changeSettings({ unit: "metric" });
+              dispatch({ type: "init_setUnit", unit: "metric"})
             }}
           >
             °C
           </span>
           <span
-            className={settings.unit !== "metric" ? "active" : ""}
+            className={unit !== "metric" ? "active" : ""}
             onClick={() => {
-              changeSettings({ unit: "imperial" });
+              // changeSettings({ unit: "imperial" });
+              dispatch({ type: "init_setUnit", unit: "imperial"})
             }}
           >
             °F
           </span>
         </div>
-        <DarkModeToggle checked={settings.theme === "dark"} onChange={() => {
-          if (settings.theme === "dark") changeSettings({ theme: "light" });
-          else changeSettings({ theme: "dark" });
-        }} size={60} />
+        <DarkModeToggle 
+            checked={theme === 'dark'} 
+            onChange={() => {
+                theme === 'dark' ?
+                    dispatch({ type: "init_setTheme", theme: "light"}) :
+                    dispatch({ type: "init_setTheme", theme: "dark"})
+            }} 
+        size={60} />
       </div>
-      <Search changeLocation={(value)=>changeLocation(value)} />
+      {/* <Search changeLocation={(value)=>changeLocation(value)} /> */}
+      <Search changeLocation={(value)=>{ dispatch({ type: "init_setCurrentLocation", location: value}) }}/>
     </>
   );
 };
