@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/all-weather/static/css/main.5fd8ad1f.css",
-    "main.js": "/all-weather/static/js/main.e97c4799.js",
+    "main.css": "/all-weather/static/css/main.009aeffb.css",
+    "main.js": "/all-weather/static/js/main.4ef775fe.js",
     "static/js/787.b7b4475a.chunk.js": "/all-weather/static/js/787.b7b4475a.chunk.js",
     "static/media/not-found.svg": "/all-weather/static/media/not-found.ee1da56b3b938294ddcdc22b5f9d043f.svg",
     "static/media/bg.svg": "/all-weather/static/media/bg.b68c273b63e533309dec.svg",
     "static/media/darkBg.svg": "/all-weather/static/media/darkBg.60488de131345eb66f88.svg",
     "index.html": "/all-weather/index.html",
-    "main.5fd8ad1f.css.map": "/all-weather/static/css/main.5fd8ad1f.css.map",
-    "main.e97c4799.js.map": "/all-weather/static/js/main.e97c4799.js.map",
+    "main.009aeffb.css.map": "/all-weather/static/css/main.009aeffb.css.map",
+    "main.4ef775fe.js.map": "/all-weather/static/js/main.4ef775fe.js.map",
     "787.b7b4475a.chunk.js.map": "/all-weather/static/js/787.b7b4475a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5fd8ad1f.css",
-    "static/js/main.e97c4799.js"
+    "static/css/main.009aeffb.css",
+    "static/js/main.4ef775fe.js"
   ]
 }
