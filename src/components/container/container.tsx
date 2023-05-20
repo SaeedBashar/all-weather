@@ -16,7 +16,6 @@ import { Start }from '../Common/start/start';
 // };
 
 export const Container = () => {
-  console.log('[Container] running...')
   const {
     currentLocationName, 
     unit, isLoading

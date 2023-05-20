@@ -17,7 +17,6 @@ export const Hourly = () => {
     hourly[0] ? hourly[0].dt : 0
   );
   const onClickHandler = (h: CurrentWeatherModel) => {
-    console.log(h)
     dispatch({
       type: 'init_setCurrentWeather', 
       locationName: currentLocationName, 

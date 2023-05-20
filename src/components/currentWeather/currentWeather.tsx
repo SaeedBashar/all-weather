@@ -7,7 +7,6 @@ export const CurrentWeather = () => {
     theme : s.settings.theme,
     currentWeather : s.weather.currentWeather,
   }))
-  console.log(currentWeather)
   const weatherCode =
     currentWeather.weather.icon !== ""
       ? theme === "dark"

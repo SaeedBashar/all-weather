@@ -80,7 +80,7 @@ export const getFormatedHourlyWeather = (data:any, unit:string)=>{
             item.main.temp,
         feels_like: unit === 'metric' ? fahrenheitToCelcius(item.main.feels_like) : item.main.feels_like,
         details: {
-          rain: item.pop * 100,
+          rain: +(item.pop * 100).toFixed(2),
           visibility: item.visibility / 1000,
           humidity: item.main.humidity,
           pressure: item.main.pressure,
