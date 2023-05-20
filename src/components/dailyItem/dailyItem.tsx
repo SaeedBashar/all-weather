@@ -1,19 +1,22 @@
-import { SettingsModel } from "../../models";
+import { useSelector } from "react-redux";
 import { DailyWeatherDetailsModel } from "../../models/DailyWeatherDetailsModel";
 import "./dailyItem.scss";
 
 type DailyItemProps = {
-  settings: SettingsModel;
   data: DailyWeatherDetailsModel;
   onClick: () => void;
 };
 
-export const DailyItem = ({ settings, data, onClick }: DailyItemProps) => {
+export const DailyItem = ({ data, onClick }: DailyItemProps) => {
+  const { theme, unit } = useSelector((s:any)=>({
+    theme: s.settings.theme,
+    unit: s.settings.unit
+  }))
   const weatherCode =
-    settings.theme === "dark"
+    theme === "dark"
       ? `${data.weather.icon}_n`
       : `${data.weather.icon}`;
-  const unitSymbol = settings.unit === "metric" ? "C" : "F";
+  const unitSymbol = unit === "metric" ? "C" : "F";
   return (
     <div className="daily-item" onClick={onClick}>
       <img

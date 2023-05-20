@@ -1,12 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect,  } from "react";
-import { useWeather } from "../../hooks";
-import {
-  CurrentWeatherModel,
-  EmptyCurrentWeather,
-  HourlyWeatherModel,
-  SettingsModel,
-} from "../../models";
+
 import CurrentWeather from "../currentWeather/currentWeather";
 import CurrentWeatherDetails from "../currentWeatherDetails/currentWeatherDetails";
 import Daily from "../daily/daily";
@@ -25,16 +19,11 @@ export const Container = () => {
   console.log('[Container] running...')
   const {
     currentLocationName, 
-    currentWeatherSelectedItem,
-    hourlyWeather, dailyWeather, location,
-    unit, theme, isLoading
+    unit, isLoading
   } = useSelector((s:any)=>(
     {
     currentLocationName : s.settings.currentLocation,
     currentWeatherSelectedItem : s.weather.currentWeather,
-    hourlyWeather: s.weather.hourlyWeather,
-    dailyWeather: s.weather.dailyWeather,
-    location: s.weather.location,
     isLoading: s.weather.isLoading,
     unit: s.settings.unit,
     theme: s.settings.theme
@@ -46,17 +35,17 @@ export const Container = () => {
       dispatch({
         type: 'init_setCurrentWeather', 
         locationName: currentLocationName, 
-        unit: 'metric',
+        unit: unit,
         hourlySelection: null})
       dispatch({
         type: 'init_setDailyWeather',  
-        unit: 'metric'})
+        unit: unit})
       dispatch({
         type: 'init_setHourlyWeather', 
         locationName: currentLocationName, 
-        unit: 'metric'})
+        unit: unit})
     }
-  }, [currentLocationName, dispatch])
+  }, [currentLocationName, dispatch, unit])
   
   // export const Container = ({ settings, changeSettings }: ContainerProps) => {
   // const [currentWeatherSelectedItem, setCurrentWeatherSelectedItem] =
@@ -85,10 +74,8 @@ export const Container = () => {
               <Header/>
               <CurrentWeather/>
               <CurrentWeatherDetails/>
-              <Hourly
-                // clickHandler={hourlyItemClickHandler}
-              ></Hourly>
-              {/* <Daily settings={settings} data={dailyWeather}></Daily> */}
+              <Hourly/>
+              <Daily/>
             </div>
           </div>
         : 

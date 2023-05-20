@@ -1,15 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DailyItem from "../dailyItem/dailyItem";
-import { DailyWeatherModel, SettingsModel } from "../../models";
 import { DailyItemDetails } from "../dailyItemDetails/dailyItemDetails";
 import "./daily.scss";
+import { useSelector } from "react-redux";
 
-type DailyProps = {
-  settings: SettingsModel;
-  data: DailyWeatherModel;
-};
-
-export const Daily = ({ settings, data }: DailyProps) => {
+export const Daily = () => {
+  const { daily } = useSelector((s:any)=>({
+    daily: s.weather.dailyWeather
+  }))
   const [activeIndex, setActiveIndex] = useState(null);
 
   const clickHandler = (d: any) => {
@@ -23,10 +21,9 @@ export const Daily = ({ settings, data }: DailyProps) => {
     <div className="daily">
       <label className="title">Daily</label>
       <div className="daily-items-container">
-        {data.daily.map((d) => (
+        {daily.map((d:any) => (
           <div key={d.dt}>
             <DailyItem
-              settings={settings}
               data={d}
               onClick={() => clickHandler(d)}
             ></DailyItem>
@@ -37,7 +34,7 @@ export const Daily = ({ settings, data }: DailyProps) => {
                   : "daily-item-header"
               }
             >
-              <DailyItemDetails data={d}></DailyItemDetails>
+              <DailyItemDetails data={d}/>
             </div>
           </div>
         ))}

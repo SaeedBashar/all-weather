@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { CurrentWeatherDetailsModel } from "../../models/";
 import "./currentWeatherDetails.scss";
 
 
