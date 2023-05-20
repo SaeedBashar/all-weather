@@ -1,19 +1,20 @@
-import { CurrentWeatherModel, SettingsModel } from "../../models";
+import { useSelector} from 'react-redux';
 import "./currentWeather.scss";
 
-type CurrentWeatherProps = {
-  settings: SettingsModel;
-  data: CurrentWeatherModel;
-};
-
-export const CurrentWeather = ({ settings, data }: CurrentWeatherProps) => {
+export const CurrentWeather = () => {
+  const { unit, theme, currentWeather } = useSelector((s:any)=>({
+    unit : s.settings.unit,
+    theme : s.settings.theme,
+    currentWeather : s.weather.currentWeather,
+  }))
+  console.log(currentWeather)
   const weatherCode =
-    data.weather.icon !== ""
-      ? settings.theme === "dark"
-        ? `${data.weather.icon}_n`
-        : `${data.weather.icon}`
+    currentWeather.weather.icon !== ""
+      ? theme === "dark"
+        ? `${currentWeather.weather.icon}_n`
+        : `${currentWeather.weather.icon}`
       : "01d";
-  const unitSymbol = settings.unit === "metric" ? "C" : "F";
+  const unitSymbol = unit === "metric" ? "C" : "F";
   return (
     <div className="current-weather">
       <div className="image">
@@ -25,12 +26,12 @@ export const CurrentWeather = ({ settings, data }: CurrentWeatherProps) => {
       </div>
       <div className="details">
         <label className="temp">
-          {Math.round(data.temp)}°<span>{unitSymbol}</span>
+          {Math.round(currentWeather.temp)}°<span>{unitSymbol}</span>
         </label>
         <label className="feelslike">
-          Feels like: <span>{Math.round(data.feels_like)}°</span>
+          Feels like: <span>{Math.round(currentWeather.feels_like)}°</span>
         </label>
-        <label className="description">{data.weather.description}</label>
+        <label className="description">{currentWeather.weather.description}</label>
       </div>
     </div>
   );

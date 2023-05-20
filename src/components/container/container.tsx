@@ -26,14 +26,18 @@ export const Container = () => {
   const {
     currentLocationName, 
     currentWeatherSelectedItem,
-    hourlyWeather, dailyWeather, location
+    hourlyWeather, dailyWeather, location,
+    unit, theme, isLoading
   } = useSelector((s:any)=>(
     {
     currentLocationName : s.settings.currentLocation,
     currentWeatherSelectedItem : s.weather.currentWeather,
     hourlyWeather: s.weather.hourlyWeather,
     dailyWeather: s.weather.dailyWeather,
-    location: s.weather.location
+    location: s.weather.location,
+    isLoading: s.weather.isLoading,
+    unit: s.settings.unit,
+    theme: s.settings.theme
   }));
   const dispatch = useDispatch()
   
@@ -42,7 +46,8 @@ export const Container = () => {
       dispatch({
         type: 'init_setCurrentWeather', 
         locationName: currentLocationName, 
-        unit: 'metric'})
+        unit: 'metric',
+        hourlySelection: null})
       dispatch({
         type: 'init_setDailyWeather',  
         unit: 'metric'})
@@ -67,34 +72,23 @@ export const Container = () => {
   //   changeUnits(currentWeather, hourlyWeather, dailyWeather)
   // },[settings.unit])
 
-  // const hourlyItemClickHandler = (current: CurrentWeatherModel) => {
-  //   setCurrentWeatherSelectedItem(current);
-  // };
- 
   // const changeLocationHandler = useCallback((location: string) => {
   //   setCurrentLocationName(location);
   // }, []);
 
   return (
-    <Spinner isLoading={false}>
+    <Spinner isLoading={isLoading}>
       {
         currentLocationName.trim() ? 
             <div className="container">
             <div className="grid-container">
               <Header/>
-              {/* <CurrentWeather
-                settings={settings}
-                data={currentWeatherSelectedItem}
-              ></CurrentWeather>
-              <CurrentWeatherDetails
-                data={currentWeatherSelectedItem.details}
-              ></CurrentWeatherDetails>
+              <CurrentWeather/>
+              <CurrentWeatherDetails/>
               <Hourly
-                settings={settings}
-                data={hourlyWeather}
-                clickHandler={hourlyItemClickHandler}
+                // clickHandler={hourlyItemClickHandler}
               ></Hourly>
-              <Daily settings={settings} data={dailyWeather}></Daily> */}
+              {/* <Daily settings={settings} data={dailyWeather}></Daily> */}
             </div>
           </div>
         : 

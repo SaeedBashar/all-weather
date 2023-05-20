@@ -2,26 +2,28 @@ import React, { useState } from "react";
 import ScrollContainer from "react-indiana-drag-scroll";
 import {
   CurrentWeatherModel,
-  HourlyWeatherModel,
-  SettingsModel,
 } from "../../models";
 import HourlyItem from "../hourlyItem/hourlyItem";
 import "./hourly.scss";
+import { useDispatch, useSelector } from "react-redux";
 
-type HourlyProps = {
-  settings: SettingsModel;
-  data: HourlyWeatherModel;
-  clickHandler: (h: CurrentWeatherModel) => void;
-};
-
-export const Hourly = ({ settings, data, clickHandler }: HourlyProps) => {
+export const Hourly = () => {
+  const { hourly, currentLocationName } = useSelector((s:any)=>({
+    hourly: s.weather.hourlyWeather,
+    currentLocationName : s.settings.currentLocation,
+  }))
+  const dispatch = useDispatch()
   const [activeIndex, setActiveIndex] = useState(
-    data && data.hourly[0] ? data.hourly[0].dt : 0
+    hourly[0] ? hourly[0].dt : 0
   );
-
   const onClickHandler = (h: CurrentWeatherModel) => {
+    console.log(h)
+    dispatch({
+      type: 'init_setCurrentWeather', 
+      locationName: currentLocationName, 
+      unit: 'metric',
+      hourlySelection: h})
     setActiveIndex(h.dt);
-    clickHandler(h);
   };
 
   return (
@@ -29,7 +31,7 @@ export const Hourly = ({ settings, data, clickHandler }: HourlyProps) => {
       <label className="title">Hourly</label>
       <div className="hourly-items-container">
         <ScrollContainer horizontal>
-          {data.hourly.map((h) => (
+          {hourly.map((h:any) => (
             <div
               key={h.dt}
               className={
@@ -39,7 +41,7 @@ export const Hourly = ({ settings, data, clickHandler }: HourlyProps) => {
               }
               onClick={() => onClickHandler(h)}
             >
-              <HourlyItem settings={settings} data={h}></HourlyItem>
+              <HourlyItem data={h}></HourlyItem>
             </div>
           ))}
         </ScrollContainer>

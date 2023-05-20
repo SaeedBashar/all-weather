@@ -1,17 +1,21 @@
-import { CurrentWeatherModel, SettingsModel } from "../../models";
+import { useSelector } from "react-redux";
+import { CurrentWeatherModel } from "../../models";
 import "./hourlyItem.scss";
 
 type HourlyItemProps = {
-  settings: SettingsModel;
   data: CurrentWeatherModel;
 };
 
-export const HourlyItem = ({ settings, data }: HourlyItemProps) => {
+export const HourlyItem = ({data }: HourlyItemProps) => {
+  const { theme, unit } = useSelector((s:any)=>({
+    theme: s.settings.theme,
+    unit : s.settings.unit
+  }))
   const weatherCode =
-    settings.theme === "dark"
+    theme === "dark"
       ? `${data.weather.icon}_n`
       : `${data.weather.icon}`;
-  const unitSymbol = settings.unit === "metric" ? "C" : "F";
+  const unitSymbol = unit === "metric" ? "C" : "F";
   return (
     <div className="hourly-item">
       <label className="hour">{new Date(data.dt * 1000).getHours()}:00</label>
