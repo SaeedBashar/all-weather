@@ -56,9 +56,7 @@ export function* handleDailyWeather(action:any){
                 }
             }
         } = yield axios.get(`./mock-data/weather_${action.unit}.json`)
-
         const daily : [] = yield getFormatedDailyWeather(res.data.weather.daily)
-
         yield put({type: 'weather/getDailyWeather', payload: {daily}})
     }catch(e){
         console.log(e)

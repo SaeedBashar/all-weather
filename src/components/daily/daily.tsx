@@ -5,6 +5,7 @@ import "./daily.scss";
 import { useSelector } from "react-redux";
 
 export const Daily = () => {
+
   const { daily } = useSelector((s:any)=>({
     daily: s.weather.dailyWeather
   }))

@@ -8,6 +8,7 @@ import "./hourly.scss";
 import { useDispatch, useSelector } from "react-redux";
 
 export const Hourly = () => {
+
   const { hourly, currentLocationName } = useSelector((s:any)=>({
     hourly: s.weather.hourlyWeather,
     currentLocationName : s.settings.currentLocation,

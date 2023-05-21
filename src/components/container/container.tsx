@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect,  } from "react";
+import { ReactElement, useEffect, useState,  } from "react";
 
 import CurrentWeather from "../currentWeather/currentWeather";
 import CurrentWeatherDetails from "../currentWeatherDetails/currentWeatherDetails";
@@ -9,28 +9,26 @@ import Hourly from "../hourly/hourly";
 import "./container.scss";
 import Spinner from "../Common/spinner/spinner";
 import { Start }from '../Common/start/start';
-
-// type ContainerProps = {
-//   settings: SettingsModel;
-//   changeSettings: (newSettings: object) => void;
-// };
+import { setIsLoading } from "../../store/reducers/weatherReducer";
 
 export const Container = () => {
   const {
     currentLocationName, 
-    unit, isLoading
+    unit, isLoading,
+    daily, hourly
   } = useSelector((s:any)=>(
     {
     currentLocationName : s.settings.currentLocation,
-    currentWeatherSelectedItem : s.weather.currentWeather,
     isLoading: s.weather.isLoading,
     unit: s.settings.unit,
-    theme: s.settings.theme
+    hourly: s.weather.hourlyWeather,
+    daily: s.weather.dailyWeather
   }));
   const dispatch = useDispatch()
   
   useEffect(()=>{
     if(currentLocationName){
+      // if(isLoading) dispatch(setIsLoading({isLoading: true}))
       dispatch({
         type: 'init_setCurrentWeather', 
         locationName: currentLocationName, 
@@ -45,41 +43,27 @@ export const Container = () => {
         unit: unit})
     }
   }, [currentLocationName, dispatch, unit])
-  
-  // export const Container = ({ settings, changeSettings }: ContainerProps) => {
-  // const [currentWeatherSelectedItem, setCurrentWeatherSelectedItem] =
-  //   useState(EmptyCurrentWeather);
-  // const [currentLocationName, setCurrentLocationName] = useState<string>("Kumasi");
-  // const { isLoading, location, currentWeather, hourlyWeather, dailyWeather, changeUnits } =
-  //   useWeather(currentLocationName, settings.unit);
-  // useEffect(() => {
-  //   setCurrentWeatherSelectedItem(currentWeather);
-  // }, [currentWeather]);
 
-  // useEffect(()=>{
-  //   changeUnits(currentWeather, hourlyWeather, dailyWeather)
-  // },[settings.unit])
-
-  // const changeLocationHandler = useCallback((location: string) => {
-  //   setCurrentLocationName(location);
-  // }, []);
-
+  let shouldLoad = currentLocationName.trim() &&
+                  hourly.length > 0 &&
+                  daily.length > 0
   return (
-    <Spinner isLoading={isLoading}>
+    <>
+    <Spinner isLoading={false}>
       {
-        currentLocationName.trim() ? 
-            <div className="container">
-            <div className="grid-container">
-              <Header/>
-              <CurrentWeather/>
-              <CurrentWeatherDetails/>
-              <Hourly/>
-              <Daily/>
-            </div>
-          </div>
-        : 
-        <Start/>
+         shouldLoad  ? (
+              <div className="container">
+                <div className="grid-container">
+                  <Header/>
+                  <CurrentWeather/>
+                  <CurrentWeatherDetails/>
+                  <Hourly/>
+                  <Daily/>
+                </div>
+              </div>
+        ) : <Start/>
       }
     </Spinner>
+    </>
   );
 };

@@ -13,10 +13,7 @@ export const App = () => {
     <main className={theme}>
       <div className="main-container">
         <ErrorBoundary FallbackComponent={Error} onError={ErrorHandler}>
-          <Container
-            // settings={settings}
-            // changeSettings={changeSettings}
-          ></Container>
+          <Container/>
         </ErrorBoundary>
       </div>
     </main>

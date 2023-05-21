@@ -7,8 +7,12 @@ import './start.scss';
 
 
 export const Start = ()=>{
-    const theme = useSelector((s:any)=>s.settings.theme)
+    const {theme} = useSelector((s:any)=>({
+        theme: s.settings.theme,
+        // unit: s.settings.unit
+    }))
     const dispatch = useDispatch()
+
     return (
         <div className='start'>
             <div className="start-top">
@@ -24,7 +28,7 @@ export const Start = ()=>{
                     size={60} />
                 </div>
             </div>
-            <Search changeLocation={(value)=>{ dispatch({ type: "init_setCurrentLocation", location: value}) }}/>
+            <Search changeLocation={(value)=>dispatch({ type: "init_setCurrentLocation", location: value})}/>
         </div>
     )
 }

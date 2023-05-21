@@ -2,6 +2,7 @@ import { useSelector} from 'react-redux';
 import "./currentWeather.scss";
 
 export const CurrentWeather = () => {
+
   const { unit, theme, currentWeather } = useSelector((s:any)=>({
     unit : s.settings.unit,
     theme : s.settings.theme,
