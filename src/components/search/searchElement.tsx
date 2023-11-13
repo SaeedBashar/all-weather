@@ -11,6 +11,7 @@ export const Search = ({changeLocation}: {changeLocation:(e:any)=>void})=>{
     return (
         <div className="search">
             <input 
+            placeholder="Location"
             onChange={onSearchInputChanged}
             onKeyPress={(e)=>{
                 if (e.key === "Enter") {
